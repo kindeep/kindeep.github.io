@@ -3,7 +3,7 @@ canvas = document.getElementById("tictactoe");
 window.onload = function () {
 
     drawCanvas();
-    resizeCanvas();
+    //resizeCanvas();
 }
 
 
@@ -21,7 +21,7 @@ function start() {
 }
 
 window.onresize = function onresize() {
-    resizeCanvas();
+    //resizeCanvas();
 }
 
 function resizeCanvas() {
@@ -40,7 +40,6 @@ function resizeCanvas() {
 }
 
 function drawCanvas() {
-
     let ctx = canvas.getContext("2d");
     ctx.font = "30px Arial";
     ctx.strokeText("Hello World", 10, 50);
