@@ -1,21 +1,24 @@
-
 let canvas = document.getElementById("tictactoe");
 var boardArray = create2DArray();
 var CANVAS_HEIGHT, CANVAS_WIDTH;
 var turn = 0;
 var victory = false;
+var randomAutoMoves = true;
+var ignoreBoardClicks = 1;
 window.onload = function () {
     initializeBoard();
     drawCanvas();
     resizeCanvas();
+    randomAutoMoves = true;
+    randomMove();
+    setInterval(randomMove, 100000);
 };
 
 function playTurn(x, y) {
-    if(victory===true) {
+    if (victory === true) {
         victory = false;
         reset();
-    }
-    else {
+    } else {
         if (turn > 9) reset();
         if (x !== -1 && y !== -1) {
             if (Math.pow(-1, turn) === 1) {
@@ -26,7 +29,41 @@ function playTurn(x, y) {
     }
 }
 
-function  reset() {
+function drawClickToPlay() {
+    var ctx = canvas.getContext("2d");
+    ctx.textAlign = "center";
+    ctx.font = "16px Arial";
+    ctx.fillText("Click to play!", CANVAS_WIDTH / 2, CANVAS_HEIGHT - 16);
+}
+
+function boardClicked(e) {
+    if (randomAutoMoves === true) {
+        reset();
+        randomAutoMoves = false;
+    }
+    if (ignoreBoardClicks > 0) {
+        ignoreBoardClicks--;
+    } else {
+
+        var rect = canvas.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+        let x_click = -1, y_click = -1;
+        if (x < CANVAS_WIDTH / 3 && x > 0) y_click = 0;
+        if (x > CANVAS_WIDTH / 3 && x < ((CANVAS_WIDTH / 3) * 2)) y_click = 1;
+        if (x < CANVAS_WIDTH && x > ((CANVAS_WIDTH / 3) * 2)) y_click = 2;
+
+        if (y < CANVAS_HEIGHT / 3 && y > 0) x_click = 0;
+        if (y > CANVAS_HEIGHT / 3 && y < ((CANVAS_HEIGHT / 3) * 2)) x_click = 1;
+        if (y < CANVAS_HEIGHT && y > ((CANVAS_HEIGHT / 3) * 2)) x_click = 2;
+
+
+        playTurn(x_click, y_click);
+    }
+}
+
+
+function reset() {
     turn = 0;
     initializeBoard();
     drawCanvas();
@@ -37,21 +74,14 @@ function isIntersect(point, circle) {
 }
 
 canvas.addEventListener('click', (e) => {
+    if (turn >= 9) {
+        setTimeout(victf, 0, -10);
+        reset();
+    }
     var rect = canvas.getBoundingClientRect();
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
-    let x_click = -1, y_click = -1;
-    if (x < CANVAS_WIDTH / 3 && x > 0) y_click = 0;
-    if (x > CANVAS_WIDTH / 3 && x < ((CANVAS_WIDTH / 3) * 2)) y_click = 1;
-    if (x < CANVAS_WIDTH && x > ((CANVAS_WIDTH / 3) * 2)) y_click = 2;
-
-    if (y < CANVAS_HEIGHT/ 3 && y > 0) x_click = 0;
-    if (y > CANVAS_HEIGHT / 3 && y < ((CANVAS_HEIGHT / 3) * 2)) x_click = 1;
-    if (y < CANVAS_HEIGHT && y > ((CANVAS_HEIGHT / 3) * 2)) x_click = 2;
-
-    console.log(x+" "+y+" "+CANVAS_HEIGHT+" "+CANVAS_WIDTH);
-    console.log(x_click, y_click);
-    playTurn(x_click, y_click);
+    if (x > 0 && x < CANVAS_WIDTH && y > 0 && y < CANVAS_HEIGHT) boardClicked(e);
 
 });
 
@@ -99,7 +129,7 @@ function detectWin() {
     let sum2 = 0;
     for (var i = 0; i < boardArray.length; i++) {
         sum += boardArray[i][i];
-        sum2 += boardArray[i][2-i];
+        sum2 += boardArray[i][2 - i];
     }
     if (sum === 3 || sum === -3) {
         victoryEvent(sum);
@@ -108,6 +138,11 @@ function detectWin() {
     if (sum2 === 3 || sum2 === -3) {
         victoryEvent(sum);
         return;
+    }
+
+    console.log(turn);
+    if(turn >= 9) {
+        setTimeout(victf, 0, -10);
     }
 
 }
@@ -125,32 +160,47 @@ function victoryEvent(sum) {
 
 function victf(sum) {
     drawCanvas();
-    console.log("Victory"+sum);
-    if (sum < 0) {
+    if (sum === -3) {
         displayVictory("X Wins");
     }
-    if (sum > 0) {
+    if (sum === 3) {
         //o won
         displayVictory("O Wins");
+    }
+    if (sum === -10) {
+        displayDraw();
     }
     turn = 0;
 
 }
 
-function  displayVictory(text) {
-    var ctx = canvas.getContext("2d");
-    ctx.font = "84px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText(text,CANVAS_WIDTH/2,CANVAS_HEIGHT/2);
-    ctx.font = "16px Arial";
-    ctx.fillText("Click to continue", CANVAS_WIDTH/2, CANVAS_HEIGHT - 16);
+function  displayDraw() {
+    victory = true;
+    if (!randomAutoMoves) {
+        var ctx = canvas.getContext("2d");
+        ctx.font = "84px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("Draw", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        ctx.font = "16px Arial";
+        ctx.fillText("Click to continue", CANVAS_WIDTH / 2, CANVAS_HEIGHT - 16);
+    }
+}
+
+function displayVictory(text) {
+    if (!randomAutoMoves) {
+        var ctx = canvas.getContext("2d");
+        ctx.font = "84px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(text, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        ctx.font = "16px Arial";
+        ctx.fillText("Click to continue", CANVAS_WIDTH / 2, CANVAS_HEIGHT - 16);
+    }
 }
 
 function start() {
     let w = window.innerWidth;
     let h = window.innerHeight;
-    console.log(w);
-    console.log(h);
+
     if ((w / h) > (9 / 16)) {
 
     } else {
@@ -269,4 +319,18 @@ function drawO(x, y, r) {
 
 function drawGrid() {
 
+}
+
+function randomMove() {
+    var x, y;
+    x = parseInt(2 * Math.random());
+    y = parseInt(2 * Math.random());
+    if (randomAutoMoves) {
+        while (parseInt(boardArray[x][y]) !== 0) {
+            x = parseInt(2 * Math.random());
+            y = parseInt(2 * Math.random());
+        }
+        playTurn(x, y);
+        drawClickToPlay();
+    }
 }
