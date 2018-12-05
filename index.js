@@ -1,8 +1,9 @@
+
 let canvas = document.getElementById("tictactoe");
 var boardArray = create2DArray();
 var CANVAS_HEIGHT, CANVAS_WIDTH;
 var turn = 0;
-
+var victory = false;
 window.onload = function () {
     initializeBoard();
     drawCanvas();
@@ -10,12 +11,25 @@ window.onload = function () {
 };
 
 function playTurn(x, y) {
-    if(x!==-1&&y!==-1) {
-        if (Math.pow(-1, turn) === 1) {
-            Oturn(x, y);
-        } else Xturn(x, y);
-        drawCanvas();
+    if(victory===true) {
+        victory = false;
+        reset();
     }
+    else {
+        if (turn > 9) reset();
+        if (x !== -1 && y !== -1) {
+            if (Math.pow(-1, turn) === 1) {
+                Oturn(x, y);
+            } else Xturn(x, y);
+            drawCanvas();
+        }
+    }
+}
+
+function  reset() {
+    turn = 0;
+    initializeBoard();
+    drawCanvas();
 }
 
 function isIntersect(point, circle) {
@@ -98,17 +112,38 @@ function detectWin() {
 
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 function victoryEvent(sum) {
+    victory = true;
+    setTimeout(victf, 0, sum);
+
+}
+
+function victf(sum) {
+    drawCanvas();
     console.log("Victory"+sum);
     if (sum < 0) {
-        //x won
+        displayVictory("X Wins");
     }
     if (sum > 0) {
-        //y won
+        //o won
+        displayVictory("O Wins");
     }
     turn = 0;
-    initializeBoard();
-    drawCanvas();
+
+}
+
+function  displayVictory(text) {
+    var ctx = canvas.getContext("2d");
+    ctx.font = "84px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(text,CANVAS_WIDTH/2,CANVAS_HEIGHT/2);
+    ctx.font = "16px Arial";
+    ctx.fillText("Click to continue", CANVAS_WIDTH/2, CANVAS_HEIGHT - 16);
 }
 
 function start() {
