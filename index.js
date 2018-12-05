@@ -11,7 +11,7 @@ window.onload = function () {
     resizeCanvas();
     randomAutoMoves = true;
     randomMove();
-    setInterval(randomMove, 100000);
+    setInterval(randomMove, 5000);
 };
 
 function playTurn(x, y) {
