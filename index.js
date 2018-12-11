@@ -104,9 +104,10 @@ function Oturn(x, y) {
 
 function detectWin() {
 
-    for (var i = 0; i < boardArray.length; i++) {
+    //rows
+    for (let i = 0; i < boardArray.length; i++) {
         let sum = 0;
-        for (var j = 0; j < boardArray.length; j++) {
+        for (let j = 0; j < boardArray.length; j++) {
             sum += boardArray[i][j];
         }
         if (sum === 3 || sum === -3) {
@@ -114,9 +115,11 @@ function detectWin() {
             return;
         }
     }
-    for (var j = 0; j < boardArray.length; j++) {
+
+    //cols
+    for (let j = 0; j < boardArray.length; j++) {
         let sum = 0;
-        for (var i = 0; i < boardArray.length; i++) {
+        for (let i = 0; i < boardArray.length; i++) {
             sum += boardArray[i][j];
         }
         if (sum === 3 || sum === -3) {
@@ -125,23 +128,24 @@ function detectWin() {
         }
 
     }
-    let sum = 0;
-    let sum2 = 0;
-    for (var i = 0; i < boardArray.length; i++) {
+    let sum = 0;    // /
+    let sum2 = 0;   // \
+    for (let i = 0; i < boardArray.length; i++) {
         sum += boardArray[i][i];
         sum2 += boardArray[i][2 - i];
+
+    }
+    if (sum2 === 3 || sum2 === -3) {
+        victoryEvent(sum2);
+
+        return;
     }
     if (sum === 3 || sum === -3) {
         victoryEvent(sum);
         return;
     }
-    if (sum2 === 3 || sum2 === -3) {
-        victoryEvent(sum);
-        return;
-    }
 
-    console.log(turn);
-    if(turn >= 9) {
+    if (turn >= 9) {
         setTimeout(victf, 0, -10);
     }
 
@@ -159,13 +163,16 @@ function victoryEvent(sum) {
 }
 
 function victf(sum) {
+
     drawCanvas();
     if (sum === -3) {
+
         displayVictory("X Wins");
     }
     if (sum === 3) {
         //o won
         displayVictory("O Wins");
+
     }
     if (sum === -10) {
         displayDraw();
@@ -174,7 +181,7 @@ function victf(sum) {
 
 }
 
-function  displayDraw() {
+function displayDraw() {
     victory = true;
     if (!randomAutoMoves) {
         var ctx = canvas.getContext("2d");
@@ -273,7 +280,7 @@ function drawXat(pos) {
         y = 1;
         x = pos;
     }
-    drawX((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6, CANVAS_HEIGHT / 6);
+    drawX((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 8, CANVAS_HEIGHT / 6 - 8);
 }
 
 function drawOat(pos) {
@@ -288,7 +295,7 @@ function drawOat(pos) {
         y = 1;
         x = pos;
     }
-    drawO((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6);
+    drawO((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 8);
 }
 
 function drawX(x, y, sizex, sizey) {
