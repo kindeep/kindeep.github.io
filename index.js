@@ -280,7 +280,7 @@ function drawXat(pos) {
         y = 1;
         x = pos;
     }
-    drawX((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 8, CANVAS_HEIGHT / 6 - 8);
+    drawX((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 8, CANVAS_HEIGHT / 6 - 12);
 }
 
 function drawOat(pos) {
@@ -295,19 +295,9 @@ function drawOat(pos) {
         y = 1;
         x = pos;
     }
-    drawO((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 8);
+    drawO((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 12);
 }
 
-function drawX(x, y, sizex, sizey) {
-    let ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.moveTo(x - sizex, y - sizey);
-    ctx.lineTo(x + sizex, y + sizey);
-
-    ctx.moveTo(x + sizex, y - sizey);
-    ctx.lineTo(x - sizex, y + sizey);
-    ctx.stroke();
-}
 
 function initializeBoard() {
     for (var i = 0; i < boardArray.length; i++) {
@@ -324,8 +314,30 @@ function drawO(x, y, r) {
     ctx.stroke();
 }
 
-function drawGrid() {
 
+function drawX(x, y, sizex, sizey) {
+    let ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(x - sizex, y - sizey);
+    ctx.lineTo(x + sizex, y + sizey);
+
+    ctx.moveTo(x + sizex, y - sizey);
+    ctx.lineTo(x - sizex, y + sizey);
+    ctx.stroke();
+}
+
+function drawGrid() {
+    let ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(0*CANVAS_WIDTH, CANVAS_HEIGHT/3);
+    ctx.lineTo(CANVAS_WIDTH, CANVAS_HEIGHT/3);
+    ctx.moveTo(0*CANVAS_WIDTH, 2*CANVAS_HEIGHT/3);
+    ctx.lineTo(CANVAS_WIDTH, 2*CANVAS_HEIGHT/3);
+    ctx.moveTo(CANVAS_WIDTH/3, CANVAS_HEIGHT*0);
+    ctx.lineTo(CANVAS_WIDTH/3, CANVAS_HEIGHT);
+    ctx.moveTo(2*CANVAS_WIDTH/3, CANVAS_HEIGHT*0);
+    ctx.lineTo(2*CANVAS_WIDTH/3, CANVAS_HEIGHT);
+    ctx.stroke();
 }
 
 function randomMove() {
