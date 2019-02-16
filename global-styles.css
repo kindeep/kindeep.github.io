@@ -1,0 +1,27 @@
+.navbar {
+    background-color: #bb271a;
+}
+
+a {
+    color: #bb271a;
+}
+
+.red-bt-fixed {
+    background-color: #bb271a; !important;
+    color: #ffffff;
+
+}
+
+.red-bt-fixed:hover {
+    background-color: #bb271a; !important;
+    color: #ffffff;
+
+}
+
+.nav-item:hover {
+    color: black;
+}
+
+site-card {
+    background-color: #70dc67;
+}

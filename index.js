@@ -273,8 +273,13 @@ function create2DArray() {
 }
 
 function drawCanvas() {
+
+
+
     let ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#eadbda";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawArray();
     drawGrid();
 }
@@ -306,7 +311,7 @@ function drawXat(pos) {
         y = 1;
         x = pos;
     }
-    drawX((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 8, CANVAS_HEIGHT / 6 - 12);
+    drawX((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 18, CANVAS_HEIGHT / 6 - 18);
 }
 
 function drawOat(pos) {
@@ -321,7 +326,7 @@ function drawOat(pos) {
         y = 1;
         x = pos;
     }
-    drawO((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 12);
+    drawO((CANVAS_WIDTH / 6) + (x - 1) * (CANVAS_WIDTH / 3), (CANVAS_HEIGHT / 6) + (y - 1) * (CANVAS_HEIGHT / 3), CANVAS_WIDTH / 6 - 18);
 }
 
 
@@ -353,18 +358,23 @@ function drawX(x, y, sizex, sizey) {
     ctx.lineTo(x - sizex, y + sizey);
     ctx.stroke();
 }
+let margin = 8;
 
 function drawGrid() {
     let ctx = canvas.getContext("2d");
     ctx.beginPath();
-    ctx.moveTo(0 * CANVAS_WIDTH, CANVAS_HEIGHT / 3);
-    ctx.lineTo(CANVAS_WIDTH, CANVAS_HEIGHT / 3);
-    ctx.moveTo(0 * CANVAS_WIDTH, 2 * CANVAS_HEIGHT / 3);
-    ctx.lineTo(CANVAS_WIDTH, 2 * CANVAS_HEIGHT / 3);
-    ctx.moveTo(CANVAS_WIDTH / 3, CANVAS_HEIGHT * 0);
-    ctx.lineTo(CANVAS_WIDTH / 3, CANVAS_HEIGHT);
-    ctx.moveTo(2 * CANVAS_WIDTH / 3, CANVAS_HEIGHT * 0);
-    ctx.lineTo(2 * CANVAS_WIDTH / 3, CANVAS_HEIGHT);
+    ctx.moveTo(margin, CANVAS_HEIGHT / 3);
+    ctx.lineTo(CANVAS_WIDTH - margin, CANVAS_HEIGHT / 3);
+
+    ctx.moveTo(margin, 2 * CANVAS_HEIGHT / 3);
+    ctx.lineTo(CANVAS_WIDTH - margin, 2 * CANVAS_HEIGHT / 3);
+
+    ctx.moveTo(CANVAS_WIDTH / 3, margin);
+    ctx.lineTo(CANVAS_WIDTH / 3, CANVAS_HEIGHT - margin);
+
+    ctx.moveTo(2 * CANVAS_WIDTH / 3, margin);
+    ctx.lineTo(2 * CANVAS_WIDTH / 3, CANVAS_HEIGHT - margin);
+
     ctx.stroke();
 }
 
