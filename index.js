@@ -5,28 +5,19 @@ var turn = 0;
 var victory = false;
 var randomAutoMoves = true;
 var ignoreBoardClicks = 1;
+let parentCard = document.getElementById('tictacp');
+
+
 window.onload = function () {
     initializeBoard();
     drawCanvas();
-    //resizeCanvas();
+    resizeCanvas();
     randomAutoMoves = true;
     randomMove();
     setInterval(randomMove, 5000);
 };
 
-canvas.classList.add('container');
-
-CANVAS_HEIGHT = Math.max(canvas.clientHeight, canvas.clientWidth);
-CANVAS_WIDTH = Math.max(canvas.clientHeight, canvas.clientWidth);
-canvas.width = CANVAS_WIDTH;
-canvas.height = CANVAS_HEIGHT;
-canvas.clientWidth = CANVAS_WIDTH;
-canvas.clientHeight = CANVAS_HEIGHT;
-$(canvas).css('height', CANVAS_HEIGHT);
-$(canvas).css('width', CANVAS_WIDTH);
-console.log(CANVAS_HEIGHT + " X " + CANVAS_WIDTH);
-drawCanvas();
-
+canvas.classList.add('img-fluid');
 
 
 function playTurn(x, y) {
@@ -233,24 +224,42 @@ function start() {
     }
 }
 
-// window.onresize = function onresize() {
-//     resizeCanvas();
-// };
+window.onresize = function onresize() {
+    resizeCanvas();
+};
 
 function resizeCanvas() {
-    let w = window.innerWidth;
-    let h = window.innerHeight;
-    let maxsize = (2 * h) / 3;
-    if (w - 32 < maxsize) {
-        canvas.width = w - 32;
-        canvas.height = w - 32;
-    } else {
-        canvas.width = maxsize;
-        canvas.height = maxsize;
-    }
-    CANVAS_HEIGHT = canvas.height;
-    CANVAS_WIDTH = canvas.width;
+    console.log("resize canvas called");
+    // CANVAS_HEIGHT = Math.max(canvas.clientHeight, canvas.clientWidth);
+    // CANVAS_WIDTH = Math.max(canvas.clientHeight, canvas.clientWidth);
+
+    CANVAS_HEIGHT = $(parentCard).css('width');
+    CANVAS_WIDTH = $(parentCard).css('width');
+    CANVAS_WIDTH = CANVAS_WIDTH.substr(0, CANVAS_WIDTH.length - 2);
+    CANVAS_HEIGHT = CANVAS_HEIGHT.substr(0, CANVAS_HEIGHT.length - 2);
+    CANVAS_WIDTH = Math.max(CANVAS_HEIGHT, CANVAS_WIDTH);
+    CANVAS_HEIGHT = Math.max(CANVAS_HEIGHT, CANVAS_WIDTH);
+    canvas.width = CANVAS_WIDTH;
+    canvas.height = CANVAS_HEIGHT;
+    canvas.clientWidth = CANVAS_WIDTH;
+    canvas.clientHeight = CANVAS_HEIGHT;
+    $(canvas).css('height', CANVAS_HEIGHT);
+    $(canvas).css('width', CANVAS_WIDTH);
+    console.log(CANVAS_HEIGHT + " X " + CANVAS_WIDTH);
     drawCanvas();
+    // let w = window.innerWidth;
+    // let h = window.innerHeight;
+    // let maxsize = (2 * h) / 3;
+    // if (w - 32 < maxsize) {
+    //     canvas.width = w - 32;
+    //     canvas.height = w - 32;
+    // } else {
+    //     canvas.width = maxsize;
+    //     canvas.height = maxsize;
+    // }
+    // CANVAS_HEIGHT = canvas.height;
+    // CANVAS_WIDTH = canvas.width;
+    // drawCanvas();
 }
 
 function create2DArray() {
@@ -326,6 +335,7 @@ function initializeBoard() {
 
 function drawO(x, y, r) {
     var ctx = canvas.getContext("2d");
+    ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, 2 * Math.PI);
     ctx.stroke();
@@ -334,6 +344,7 @@ function drawO(x, y, r) {
 
 function drawX(x, y, sizex, sizey) {
     let ctx = canvas.getContext("2d");
+    ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(x - sizex, y - sizey);
     ctx.lineTo(x + sizex, y + sizey);
@@ -346,14 +357,14 @@ function drawX(x, y, sizex, sizey) {
 function drawGrid() {
     let ctx = canvas.getContext("2d");
     ctx.beginPath();
-    ctx.moveTo(0*CANVAS_WIDTH, CANVAS_HEIGHT/3);
-    ctx.lineTo(CANVAS_WIDTH, CANVAS_HEIGHT/3);
-    ctx.moveTo(0*CANVAS_WIDTH, 2*CANVAS_HEIGHT/3);
-    ctx.lineTo(CANVAS_WIDTH, 2*CANVAS_HEIGHT/3);
-    ctx.moveTo(CANVAS_WIDTH/3, CANVAS_HEIGHT*0);
-    ctx.lineTo(CANVAS_WIDTH/3, CANVAS_HEIGHT);
-    ctx.moveTo(2*CANVAS_WIDTH/3, CANVAS_HEIGHT*0);
-    ctx.lineTo(2*CANVAS_WIDTH/3, CANVAS_HEIGHT);
+    ctx.moveTo(0 * CANVAS_WIDTH, CANVAS_HEIGHT / 3);
+    ctx.lineTo(CANVAS_WIDTH, CANVAS_HEIGHT / 3);
+    ctx.moveTo(0 * CANVAS_WIDTH, 2 * CANVAS_HEIGHT / 3);
+    ctx.lineTo(CANVAS_WIDTH, 2 * CANVAS_HEIGHT / 3);
+    ctx.moveTo(CANVAS_WIDTH / 3, CANVAS_HEIGHT * 0);
+    ctx.lineTo(CANVAS_WIDTH / 3, CANVAS_HEIGHT);
+    ctx.moveTo(2 * CANVAS_WIDTH / 3, CANVAS_HEIGHT * 0);
+    ctx.lineTo(2 * CANVAS_WIDTH / 3, CANVAS_HEIGHT);
     ctx.stroke();
 }
 
