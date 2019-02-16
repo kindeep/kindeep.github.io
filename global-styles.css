@@ -23,10 +23,28 @@ a {
 }
 
 .site-card {
-    background-color: #70dc67;
+    background-color: #ffffff;
 }
 
 body {
     background-color: #e0e0e0;
     color: #000000;
+}
+
+.bg-grey {
+    background-color: #cecece;
+}
+
+.bg-red-grey {
+    background-color: #eadbda;
+}
+
+.card {
+    border: 2px solid #bb271a;
+    border-radius: 6px;
+}
+
+.site-red-border {
+    border: 2px solid #bb271a;
+    border-radius: 6px;
 }
