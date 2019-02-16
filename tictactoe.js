@@ -54,7 +54,7 @@ function boardClicked(e) {
 
         event = jQuery.event.fix(e);
         let offset = $(canvas).offset();
-        let x = event.pageX - offset.left - 20;
+        let x = event.pageX - offset.left;
         let y = event.pageY - offset.top;
         console.log("x: " + x + " y: " + y);
         let x_click = -1, y_click = -1;
