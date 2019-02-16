@@ -8,11 +8,26 @@ var ignoreBoardClicks = 1;
 window.onload = function () {
     initializeBoard();
     drawCanvas();
-    resizeCanvas();
+    //resizeCanvas();
     randomAutoMoves = true;
     randomMove();
     setInterval(randomMove, 5000);
 };
+
+canvas.classList.add('container');
+
+CANVAS_HEIGHT = Math.max(canvas.clientHeight, canvas.clientWidth);
+CANVAS_WIDTH = Math.max(canvas.clientHeight, canvas.clientWidth);
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
+canvas.clientWidth = CANVAS_WIDTH;
+canvas.clientHeight = CANVAS_HEIGHT;
+$(canvas).css('height', CANVAS_HEIGHT);
+$(canvas).css('width', CANVAS_WIDTH);
+console.log(CANVAS_HEIGHT + " X " + CANVAS_WIDTH);
+drawCanvas();
+
+
 
 function playTurn(x, y) {
     if (victory === true) {
@@ -45,9 +60,11 @@ function boardClicked(e) {
         ignoreBoardClicks--;
     } else {
 
-        var rect = canvas.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
+        event = jQuery.event.fix(e);
+        let offset = $(canvas).offset();
+        let x = event.pageX - offset.left - 20;
+        let y = event.pageY - offset.top;
+        console.log("x: " + x + " y: " + y);
         let x_click = -1, y_click = -1;
         if (x < CANVAS_WIDTH / 3 && x > 0) y_click = 0;
         if (x > CANVAS_WIDTH / 3 && x < ((CANVAS_WIDTH / 3) * 2)) y_click = 1;
@@ -216,9 +233,9 @@ function start() {
     }
 }
 
-window.onresize = function onresize() {
-    resizeCanvas();
-};
+// window.onresize = function onresize() {
+//     resizeCanvas();
+// };
 
 function resizeCanvas() {
     let w = window.innerWidth;
