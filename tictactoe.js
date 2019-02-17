@@ -193,7 +193,7 @@ function victf(sum) {
 function displayDraw() {
     victory = true;
     if (!randomAutoMoves) {
-        var ctx = canvas.getContext("2d");
+        let ctx = canvas.getContext("2d");
         ctx.fillStyle = "#bb271a";
         ctx.font = "84px Arial";
         ctx.textAlign = "center";
@@ -205,11 +205,11 @@ function displayDraw() {
 
 function displayVictory(text) {
     if (!randomAutoMoves) {
-        var ctx = canvas.getContext("2d");
+        let ctx = canvas.getContext("2d");
         ctx.fillStyle = "#bb271a";
         ctx.font = "84px Arial";
         ctx.textAlign = "center";
-        ctx.fillText(text, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        ctx.fillText(text, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 32);
         ctx.font = "16px Arial";
         ctx.fillText("Click to continue", CANVAS_WIDTH / 2, CANVAS_HEIGHT - 16);
     }
