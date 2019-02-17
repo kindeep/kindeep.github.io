@@ -48,3 +48,10 @@ body {
     border: 2px solid #bb271a;
     border-radius: 6px;
 }
+
+.ratio-mtn {
+    object-fit: contain;
+    max-height: 100%;
+    width: 100%;
+    height: auto;
+}
