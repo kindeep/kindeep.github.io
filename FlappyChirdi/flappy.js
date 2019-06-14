@@ -339,7 +339,7 @@ class Game {
                 }
                 collision = true;
             }
-        })
+        });
         if (!this.last_collision) {
             this.bird.update(this.lastRender);
             this.game_env.update(this.lastRender);
@@ -356,6 +356,7 @@ class Game {
         let px = pole.x;
         let brd = pole.env.window_width / 2;
         let bwt = chiri.size;
+        if(chiri.y - bwt/2 <=0) return true;
         if (brd + bwt/2 >= px && brd - bwt/2 <= px + pole.pole_width) {
             // horizontal condition met
             // alert("Possible collision");
