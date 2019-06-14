@@ -42,7 +42,7 @@ var Chiri =
 
             _defineProperty(this, "mass", 10);
 
-            _defineProperty(this, "jump_force_value", 550);
+            _defineProperty(this, "jump_force_value", 1000);
 
             _defineProperty(this, "size", 0.20);
 
@@ -413,7 +413,7 @@ var GameController =
 var Game =
     /*#__PURE__*/
     function () {
-        function Game(bird, game_view) {
+        function Game(game_view) {
             _classCallCheck(this, Game);
 
             _defineProperty(this, "progress", void 0);
@@ -430,15 +430,21 @@ var Game =
 
             _defineProperty(this, "last_collision", false);
 
-            this.bird = bird;
             this.game_view = game_view;
-            this.controller = new GameController(game_view.canvas_element, bird);
-            this.lastRender = 0;
-            window.requestAnimationFrame(this.game_loop.bind(this));
-            this.game_env = new Environment(game_view);
+            this.initialize();
         }
 
         _createClass(Game, [{
+            key: "initialize",
+            value: function initialize() {
+                this.last_collision = false;
+                this.bird = new Chiri();
+                this.controller = new GameController(game_view.canvas_element, this.bird);
+                this.lastRender = 0;
+                window.requestAnimationFrame(this.game_loop.bind(this));
+                this.game_env = new Environment(game_view);
+            }
+        }, {
             key: "update",
             value: function update() {
                 var _this4 = this;
@@ -449,7 +455,10 @@ var Game =
                         console.error("collision"); // return;
 
                         if (!_this4.last_collision) {
-                            alert("collision");
+                            alert("collision"); // setTimeout(() => {
+                            //     this.initialize()
+                            // }, 500);
+
                             _this4.last_collision = true;
                         }
 
@@ -502,3 +511,9 @@ var Game =
 
         return Game;
     }();
+
+function sleep(ms) {
+    return new Promise(function (resolve) {
+        return setTimeout(resolve, ms);
+    });
+}

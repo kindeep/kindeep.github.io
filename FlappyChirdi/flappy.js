@@ -1,5 +1,5 @@
-function to_pixel(val_m ,metre_total, pixel_total) {
-    return val_m * (pixel_total /  metre_total);
+function to_pixel(val_m, metre_total, pixel_total) {
+    return val_m * (pixel_total / metre_total);
 }
 
 /**
@@ -9,15 +9,16 @@ function to_pixel(val_m ,metre_total, pixel_total) {
 class Chiri {
     max_height = 6;
     y = 8; // metres from ground level
-    gravity = - 9.8; // m/s
+    gravity = -9.8; // m/s
     velocity = 0; // dydt
     last_time = 0;
     mass = 10; // kg
-    jump_force_value = 550; // Newton
+    jump_force_value = 1000; // Newton
     size = 0.20;
     forces = {
         gravity: this.mass * this.gravity,
     };
+
     constructor() {
 
     }
@@ -81,8 +82,7 @@ class Chiri {
             this.y = this.max_height;
         } else if (val <= 0) {
             this.y = 0;
-        }
-        else {
+        } else {
             this.y = val;
         }
     }
@@ -107,15 +107,16 @@ class Chiri {
 }
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  */
 class GameView {
     ctx;
     canvas_height;
     canavs_width;
     canvas_element;
+
     constructor(canvas) {
         this.canvas_element = canvas;
         this.ctx = canvas.getContext('2d');
@@ -132,7 +133,7 @@ class GameView {
 class Environment {
     pipe_distance = 2;
     window_width = 5;
-    current_velocity = - 1;
+    current_velocity = -1;
     pole_queue = [];
     last_time = 0;
     x_padding = 0.2;
@@ -206,6 +207,7 @@ class Pole {
     start_gap;
     end_gap;
     pole_width = 0.5;
+
     constructor(x, env) {
         this.x = x;
         this.env = env;
@@ -285,20 +287,29 @@ class Pole {
 class GameController {
     canvas;
     bird;
+
     constructor(canvas, bird) {
         this.canvas = canvas;
         this.bird = bird;
         $(canvas).on("mousedown",
-            () => { this.mousedown_handler() }
+            () => {
+                this.mousedown_handler()
+            }
         );
         $(canvas).on("mouseup",
-            () => { this.mouseup_handler() }
+            () => {
+                this.mouseup_handler()
+            }
         );
         $(canvas).on("touchstart",
-            () => { this.mousedown_handler() }
+            () => {
+                this.mousedown_handler()
+            }
         );
         $(canvas).on("touchend",
-            () => { this.mouseup_handler() }
+            () => {
+                this.mouseup_handler()
+            }
         )
     }
 
@@ -324,10 +335,16 @@ class Game {
     game_env;
 
     last_collision = false;
-    constructor(bird, game_view) {
-        this.bird = bird;
+
+    constructor(game_view) {
         this.game_view = game_view;
-        this.controller = new GameController(game_view.canvas_element, bird);
+        this.initialize();
+    }
+
+    initialize() {
+        this.last_collision = false;
+        this.bird = new Chiri();
+        this.controller = new GameController(game_view.canvas_element, this.bird);
         this.lastRender = 0;
         window.requestAnimationFrame(this.game_loop.bind(this));
         this.game_env = new Environment(game_view);
@@ -341,6 +358,9 @@ class Game {
                 // return;
                 if (!this.last_collision) {
                     alert("collision");
+                    // setTimeout(() => {
+                    //     this.initialize()
+                    // }, 500);
                     this.last_collision = true;
                 }
                 collision = true;
@@ -362,11 +382,11 @@ class Game {
         let px = pole.x;
         let brd = pole.env.window_width / 2;
         let bwt = chiri.size;
-        if(chiri.y - bwt/2 <=0) return true;
-        if (brd + bwt/2 >= px && brd - bwt/2 <= px + pole.pole_width) {
+        if (chiri.y - bwt / 2 <= 0) return true;
+        if (brd + bwt / 2 >= px && brd - bwt / 2 <= px + pole.pole_width) {
             // horizontal condition met
             // alert("Possible collision");
-            if (chiri.y - bwt/2 <= pole.start_gap || chiri.y + bwt/2 >= pole.end_gap) {
+            if (chiri.y - bwt / 2 <= pole.start_gap || chiri.y + bwt / 2 >= pole.end_gap) {
                 //vertical condition met
                 return true;
             }
@@ -382,4 +402,8 @@ class Game {
         this.lastRender = timestamp;
         window.requestAnimationFrame(this.game_loop.bind(this));
     }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
