@@ -32,7 +32,7 @@ var Chiri =
 
             _defineProperty(this, "max_height", 6);
 
-            _defineProperty(this, "y", 4);
+            _defineProperty(this, "y", 8);
 
             _defineProperty(this, "gravity", -9.8);
 
@@ -380,6 +380,12 @@ var GameController =
                 _this3.mousedown_handler();
             });
             $(canvas).on("mouseup", function () {
+                _this3.mouseup_handler();
+            });
+            $(canvas).on("touchstart", function () {
+                _this3.mousedown_handler();
+            });
+            $(canvas).on("touchend", function () {
                 _this3.mouseup_handler();
             });
         }

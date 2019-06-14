@@ -8,7 +8,7 @@ function to_pixel(val_m ,metre_total, pixel_total) {
  */
 class Chiri {
     max_height = 6;
-    y = 4; // metres from ground level
+    y = 8; // metres from ground level
     gravity = - 9.8; // m/s
     velocity = 0; // dydt
     last_time = 0;
@@ -290,8 +290,14 @@ class GameController {
         this.bird = bird;
         $(canvas).on("mousedown",
             () => { this.mousedown_handler() }
-        )
+        );
         $(canvas).on("mouseup",
+            () => { this.mouseup_handler() }
+        );
+        $(canvas).on("touchstart",
+            () => { this.mousedown_handler() }
+        );
+        $(canvas).on("touchend",
             () => { this.mouseup_handler() }
         )
     }
