@@ -23,6 +23,13 @@ class Chiri {
 
     }
 
+    reset() {
+        this.y = 8;
+        this.removeForce();
+        this.velocity = 0;
+        // this.last_time = 0;
+    }
+
     getForce() {
         let total_force = 0;
         Object.keys(this.forces).forEach((key, index) => {
@@ -117,16 +124,62 @@ class GameView {
     canavs_width;
     canvas_element;
 
+    get canavs_width() {
+        alert("get");
+        this.updateDimensions();
+        return Math.max(this.canvas_element.width, this.canvas_element.height);
+    }
+
+    get canvas_height() {
+        this.updateDimensions();
+        return Math.max(this.canvas_element.width, this.canvas_element.height);
+
+    }
+
     constructor(canvas) {
         this.canvas_element = canvas;
         this.ctx = canvas.getContext('2d');
+        this.updateDimensions();
         this.canavs_width = canvas.width;
         this.canvas_height = canvas.height;
+        $(window).resize(() => {
+            this.updateDimensions();
+        });
+    }
+
+    updateDimensions() {
+        // let size = Math.max(this.canvas_element.width, this.canvas_element.height);
+        let size = Math.max(
+            $(this.canvas_element).width(),
+            $(this.canvas_element).height()
+        );
+        this.resizeCanvas(size);
+        // $(this.canvas_element).width(size).height(size);
+    }
+
+
+    resizeCanvas(size) {
+        this.canvas_element.width = size;
+        this.canvas_element.height = size;
     }
 
     clear() {
         this.ctx.fillStyle = "white";
         this.ctx.fillRect(0, 0, this.canavs_width, this.canvas_height);
+    }
+
+
+    display_start_screen() {
+        let ctx = this.ctx;
+        ctx.fillStyle = "Red";
+        ctx.font = "30px Arial";
+        ctx.fillText("Flapy Chirdi, Click to start", 10, 100);
+    }
+
+    display_over_screen() {
+        let ctx = this.ctx;
+        ctx.font = "30px Arial";
+        ctx.fillText("Game Over, click to restart", 10, 100);
     }
 }
 
@@ -140,12 +193,25 @@ class Environment {
     deletion_area_left;
     deletion_area_right;
     window_height = 6;
-    game_view;
+    // game_view;
+    game;
 
-    constructor(game_view) {
-        this.game_view = game_view;
+    constructor(game) {
+        this.game = game;
+        // this.game_view = game_view;
         this.deletion_area_left = 0 - this.pipe_distance - this.x_padding;
         this.deletion_area_right = this.window_width + this.pipe_distance + this.x_padding;
+        this.push_to_pole_queue();
+        this.push_to_pole_queue();
+        this.push_to_pole_queue();
+        this.push_to_pole_queue();
+        this.push_to_pole_queue();
+        this.reset();
+    }
+
+    reset() {
+        // alert("Empty pole queue?");
+        this.pole_queue = [];
         this.push_to_pole_queue();
         this.push_to_pole_queue();
         this.push_to_pole_queue();
@@ -211,7 +277,7 @@ class Pole {
     constructor(x, env) {
         this.x = x;
         this.env = env;
-        this.pos_multiplier = (this.env.game_view.canavs_width / this.env.window_width);
+        this.pos_multiplier = (this.env.game.game_view.canavs_width / this.env.window_width);
         let gap = this.get_random_range();
         this.start_gap = gap.start;
         this.end_gap = gap.end;
@@ -233,7 +299,7 @@ class Pole {
     }
 
     draw() {
-        let ctx = this.env.game_view.ctx;
+        let ctx = this.env.game.game_view.ctx;
         // console.error(`Draw pole @ x ${this.x} with multiplier ${this.pos_multiplier}`)
         ctx.fillStyle = "green";
         let x0 = this.x * this.pos_multiplier - this.pole_width;
@@ -241,21 +307,27 @@ class Pole {
         let x1 = this.to_physical_width(this.pole_width);
         console.log(x1);
 
-        let length_up = this.env.game_view.canvas_height - this.to_physical_height(this.end_gap);
+        let length_up = this.env.game.game_view.canvas_height - this.to_physical_height(this.end_gap);
         let length_down = this.to_physical_height(this.start_gap);
 
         // let y0 = this.env.game_view.canavs_width - this.to_physical_height(this.end_gap);÷
         let y0 = 0;
         let y1 = length_up;
         console.log(y0);
+        console.log(`Pole x: ${this.x}`);
+        console.log(`pos mul: ${this.pos_multiplier}`);
         // let y1 = this.env.game_view.canvas_height;
-        console.log(`${y1} and end_gap ${this.to_physical_width(this.end_gap)} winht ${JSON.stringify(this.env.game_view.canvas_height)}`);
+        console.log(`${y1} and end_gap ${this.to_physical_width(this.end_gap)} winht ${JSON.stringify(this.env.game.game_view.canvas_height)}`);
+        console.log(`x0: ${x0} y0: ${y0} x0: ${x1} y1: ${y1} `);
+
         ctx.fillRect(x0, y0, x1, y1);
         // y0 = this.env.game_view.canavs_width;
-        y0 = this.env.game_view.canavs_width - this.to_physical_height(this.start_gap);
+        y0 = this.env.game.game_view.canavs_width - this.to_physical_height(this.start_gap);
         //  = this.to_physical_height(this.pole_width);
         y1 = length_down;
         ctx.fillRect(x0, y0, x1, y1);
+
+        console.log(`x0: ${x0} y0: ${y0} x0: ${x1} y1: ${y1} `);
         // let x0 = this.x * this.pos_multiplier;
         // let y0 = this.env.game_view.canvas_height - 200;
 
@@ -274,52 +346,110 @@ class Pole {
     }
 
     to_physical_height(virtual_ht) {
-        return virtual_ht * (this.env.game_view.canvas_height / this.env.window_height);
+        return virtual_ht * (this.env.game.game_view.canvas_height / this.env.window_height);
         // return virtual_ht * this.pos_multiplier;
     }
 
     to_physical_width(virtual_wt) {
-        return virtual_wt * (this.env.game_view.canavs_width / this.env.window_width);
+        return virtual_wt * (this.env.game.game_view.canavs_width / this.env.window_width);
         // return virtual_wt * this.pos_multiplier;
     }
 }
 
 class GameController {
-    canvas;
-    bird;
-
-    constructor(canvas, bird) {
-        this.canvas = canvas;
-        this.bird = bird;
-        $(canvas).on("mousedown",
+    game;
+    constructor(game) {
+        this.game = game;
+        $(this.game.game_view.canvas_element).on("mousedown",
             () => {
                 this.mousedown_handler()
             }
         );
-        $(canvas).on("mouseup",
+        $(this.game.game_view.canvas_element).on("mouseup",
             () => {
                 this.mouseup_handler()
             }
         );
-        $(canvas).on("touchstart",
+        $(this.game.game_view.canvas_element).on("touchstart",
             () => {
                 this.mousedown_handler()
             }
         );
-        $(canvas).on("touchend",
+        $(this.game.game_view.canvas_element).on("touchend",
             () => {
                 this.mouseup_handler()
             }
         )
+        $(this.game.game_view.canvas_element).on("click",
+            () => {
+                this.click_handler()
+            })
     }
 
     mousedown_handler() {
-        console.log("adding jump force");
-        this.bird.add_jump_force();
+        switch (this.game.STATE) {
+            case this.game.STATES.RUNNING: {
+                console.log("adding jump force");
+                this.game.bird.add_jump_force();
+                break;
+            }
+            case this.game.STATES.STOPPED: {
+
+                break;
+            }
+            case this.game.STATES.NEW: {
+
+                break;
+            }
+            case this.game.STATES.PAUSED: {
+
+                break;
+            }
+        }
+    }
+
+    click_handler() {
+        // alert("Click");
+        // alert(`State: ${this.game.STATE}`);
+        switch (this.game.STATE) {
+            case this.game.STATES.RUNNING: {
+                break;
+            }
+            case this.game.STATES.STOPPED: {
+                // alert("Start from new");                
+                this.game.start();
+                break;
+            }
+            case this.game.STATES.NEW: {
+                // alert("Start from new");
+                this.game.start();
+                break;
+            }
+            case this.game.STATES.PAUSED: {
+
+                break;
+            }
+        }
     }
 
     mouseup_handler() {
-        this.bird.remove_jump_force();
+        switch (this.game.STATE) {
+            case this.game.STATES.RUNNING: {
+                this.game.bird.remove_jump_force();
+                break;
+            }
+            case this.game.STATES.STOPPED: {
+                break;
+            }
+            case this.game.STATES.NEW: {
+
+                break;
+            }
+            case this.game.STATES.PAUSED: {
+
+                break;
+            }
+        }
     }
 }
 
@@ -333,49 +463,136 @@ class Game {
     game_view;
     controller;
     game_env;
-
+    game_start_timestamp = 0;
+    STATES = {
+        STOPPED: 0, // game over, start new game
+        PAUSED: 1, // game paused
+        RUNNING: 2, // in play mode.
+        NEW: 3, // just loaded on page. display start game screen.
+    };
+    STATE = null;
     last_collision = false;
+    kill_immunity = true;
+    start_grace_period = 2000;
 
     constructor(game_view) {
         this.game_view = game_view;
         this.initialize();
     }
 
+    /**
+     * Resets everything and starts the game again
+     */
+    start() {
+        // alert("Game started");
+        // console.log("Game started");
+        // lazy reset, just create them over again.
+        // js has to have a garbage collector right?
+        this.game_start_timestamp = this.lastRender;
+        this.STATE = this.STATES.RUNNING;
+        this.progress = 0;
+        this.last_collision = false;
+        // delete this.bird;
+        this.bird.reset();
+        // this.bird = new Chiri();
+        // this.controller = new GameController(this);
+        this.game_env.reset();
+        // delete this.game_env;
+        // this.game_env = new Environment(game);
+        this.kill_immunity = true;
+    }
+
     initialize() {
+        this.STATE = this.STATES.NEW;
         this.last_collision = false;
         this.bird = new Chiri();
-        this.controller = new GameController(game_view.canvas_element, this.bird);
+        this.controller = new GameController(this);
         this.lastRender = 0;
         window.requestAnimationFrame(this.game_loop.bind(this));
-        this.game_env = new Environment(game_view);
+        this.game_env = new Environment(this);
     }
 
     update() {
-        let collision = false;
+        if (this.STATE === this.STATES.RUNNING && (- this.game_start_timestamp + this.lastRender > this.start_grace_period)) {
+            this.kill_immunity = false;
+        }
+        else {
+            this.kill_immunity = true;
+        }
+
+        // let collision = false;
         this.game_env.pole_queue.forEach((pole) => {
             if (this.check_collission(pole, this.bird)) {
-                console.error("collision");
-                // return;
+                // console.error("collision");
                 if (!this.last_collision) {
-                    alert("collision");
-                    // setTimeout(() => {
-                    //     this.initialize()
-                    // }, 500);
-                    this.last_collision = true;
+                    this.last_collision = !this.kill_immunity;
                 }
-                collision = true;
             }
         });
-        if (!this.last_collision) {
-            this.bird.update(this.lastRender);
-            this.game_env.update(this.lastRender);
+
+        if (this.last_collision) {
+            this.STATE = this.STATES.STOPPED;
         }
+
+        switch (this.STATE) {
+            case this.STATES.STOPPED: {
+                break;
+            };
+            case this.STATES.PAUSED: {
+                break;
+            };
+            case this.STATES.RUNNING: {
+                console.error("Update working");
+                this.bird.update(this.lastRender);
+                this.game_env.update(this.lastRender);
+                break;
+            };
+            case this.STATES.NEW: {
+                this.game_env.update(this.lastRender);
+                break;
+            };
+            default: {
+
+            };
+        }
+
+    }
+
+    displayText(text) {
+        let ctx = this.game_view.ctx;
+        ctx.font = "12px Arial";
+        ctx.fillText(text, 10, 50);
     }
 
     render() {
         this.game_view.clear();
         this.game_env.draw();
-        this.bird.draw(this.game_view.canavs_width, this.game_view.canvas_height, this.game_view.ctx, 20);
+        switch (this.STATE) {
+            case this.STATES.STOPPED: {
+                this.bird.draw(this.game_view.canavs_width, this.game_view.canvas_height, this.game_view.ctx, 20);
+                // console.error("stopped");
+                this.game_view.display_over_screen();
+                break;
+            };
+            case this.STATES.PAUSED: {
+                this.bird.draw(this.game_view.canavs_width, this.game_view.canvas_height, this.game_view.ctx, 20);
+
+                break;
+
+            };
+            case this.STATES.RUNNING: {
+                this.bird.draw(this.game_view.canavs_width, this.game_view.canvas_height, this.game_view.ctx, 20);
+
+                break;
+            };
+            case this.STATES.NEW: {
+                this.game_view.display_start_screen();
+                break;
+            };
+            default: {
+
+            };
+        }
     }
 
     check_collission(pole, chiri) {
@@ -394,12 +611,18 @@ class Game {
         return false;
     }
 
-    game_loop(timestamp) {
-        this.progress = timestamp - this.lastRender;
-        // console.log(this.lastRender);
+    draw() {
         this.render();
         this.update();
+    }
+
+    game_loop(timestamp) {
+        console.log(`State: ${this.STATE}`);
+        this.progress = timestamp - this.lastRender;
+        // console.log(this.lastRender);
+        this.draw();
         this.lastRender = timestamp;
+        // this.displayText(`State: ${this.STATE} Immunity: ${this.kill_immunity} LastRender: ${this.lastRender} \nProgress: ${this.progress}`);
         window.requestAnimationFrame(this.game_loop.bind(this));
     }
 }
@@ -407,3 +630,40 @@ class Game {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// find flappy c and replace div with flappy
+
+$(".flappyc")
+    .map(function () {
+        return this;
+    })
+    .get()
+    .forEach((aParentDiv) => {
+        if (!aParentDiv.classList.contains("drawn")) {
+
+            let game_view = new GameView(aParentDiv);
+            new Game(game_view);
+
+        }
+    })
+
+// function resizeCanvas(canvas, parentCard) {
+//     console.log("resize canvas flappy called");
+//     CANVAS_HEIGHT = $(parentCard).css('width');
+//     CANVAS_WIDTH = $(parentCard).css('width');
+//     CANVAS_WIDTH = CANVAS_WIDTH.substr(0, CANVAS_WIDTH.length - 2);
+//     CANVAS_HEIGHT = CANVAS_HEIGHT.substr(0, CANVAS_HEIGHT.length - 2);
+//     CANVAS_WIDTH = Math.max(CANVAS_HEIGHT, CANVAS_WIDTH);
+//     CANVAS_HEIGHT = Math.max(CANVAS_HEIGHT, CANVAS_WIDTH);
+//     canvas.width = CANVAS_WIDTH;
+//     canvas.height = CANVAS_HEIGHT;
+//     canvas.clientWidth = CANVAS_WIDTH;
+//     canvas.clientHeight = CANVAS_HEIGHT;
+//     $(canvas).css('height', CANVAS_HEIGHT);
+//     $(canvas).css('width', CANVAS_WIDTH);
+//     console.log(CANVAS_HEIGHT + " X " + CANVAS_WIDTH);
+//     return {
+//         width: CANVAS_WIDTH,
+//         height: CANVAS_HEIGHT
+//     }
+// }

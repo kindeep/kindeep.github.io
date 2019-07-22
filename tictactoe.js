@@ -227,9 +227,13 @@ function start() {
     }
 }
 
-window.onresize = function onresize() {
+// window.onresize = function onresize() {
+//     resizeCanvas();
+// };
+
+$(window).resize(() => {
     resizeCanvas();
-};
+})
 
 function resizeCanvas() {
     console.log("resize canvas called");
