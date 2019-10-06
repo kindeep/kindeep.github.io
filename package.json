@@ -2,13 +2,15 @@
   "name": "kindeepme",
   "version": "0.0.0",
   "scripts": {
-    "prod": "ng build --prod --base-href 'https://kargq.github.io/ && npx ngh --message='First deploy' --branch=master",
+    "prod": "ng build --prod --base-href 'https://kargq.github.io/",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
+    "deploy": "node ./scripts/deploy.js",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "pwa": "./node_modules/.bin/sw-precache --root=dist --config=precache-config.js"
   },
   "private": true,
   "dependencies": {
@@ -32,7 +34,9 @@
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1",
-    "terser": "3.14.1"
+    "terser": "3.14.1",
+    "sw-precache": "^5.2.0",
+    "sw-precache-webpack-plugin": "^0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.0",
