@@ -240,9 +240,12 @@ function TicTacToe(canvas) {
     //     resizeCanvas();
     // };
 
-    $(window).resize(() => {
-        resizeCanvas();
-    })
+    // window.addEventListener('resize', () => {
+    //     resizeCanvas();
+    // }, true);
+    // $(window).resize(() => {
+    //     resizeCanvas();
+    // })
 
     function resizeCanvas() {
         console.log("resize canvas called");
@@ -261,8 +264,8 @@ function TicTacToe(canvas) {
         CANVAS_HEIGHT = Math.max(CANVAS_HEIGHT, CANVAS_WIDTH);
         canvas.width = CANVAS_WIDTH;
         canvas.height = CANVAS_HEIGHT;
-        canvas.clientWidth = CANVAS_WIDTH;
-        canvas.clientHeight = CANVAS_HEIGHT;
+        // canvas.clientWidth = CANVAS_WIDTH;
+        // canvas.clientHeight = CANVAS_HEIGHT;
         // $(canvas).css('height', CANVAS_HEIGHT);
         // $(canvas).css('width', CANVAS_WIDTH);
         // console.log(CANVAS_HEIGHT + " X " + CANVAS_WIDTH);
