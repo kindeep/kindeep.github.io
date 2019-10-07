@@ -20,7 +20,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container #sidebar>
-    <mat-sidenav #sidenav class="app-sidenav">
+    <mat-sidenav #sidenav class="app-sidenav" fixedInViewport="false">s
       <mat-nav-list>
         <a mat-list-item (click)="sidenav.toggle()" [routerLink]="'/'"> Home </a>
         <a mat-list-item (click)="sidenav.toggle()" [routerLink]="'/projects'"> Projects </a>
