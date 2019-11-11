@@ -2,7 +2,7 @@
   "name": "kindeepme",
   "version": "0.0.0",
   "scripts": {
-    "prod": "ng build --prod --aot && cp CNAME dist/ && npm run deploy",
+    "prod": "ng build --prod --aot && cp dist/index.html dist/404.html && cp CNAME dist/ && npm run deploy",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --aot",

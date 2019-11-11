@@ -15,6 +15,7 @@
       <div [style.display]="displaySidebarToggle ? 'none' : 'block'">
         <a mat-button [routerLink]="'/'"> Home </a>
         <a mat-button [routerLink]="'/projects'"> Projects </a>
+        <a mat-button href="/assets/resume.pdf"> Resume </a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -27,6 +28,9 @@
         </a>
         <a mat-list-item (click)="sidenav.toggle()" [routerLink]="'/projects'">
           Projects
+        </a>
+        <a mat-list-item (click)="sidenav.toggle()" href="/assets/resume.pdf">
+          Resume
         </a>
       </mat-nav-list>
     </mat-sidenav>
