@@ -8,7 +8,6 @@ function to_pixel(val_m, metre_total, pixel_total) {
  * Flappy the Chiri Bird
  */
 
-
 class Chiri {
     constructor() {
         _defineProperty(this, "max_height", void 0);
@@ -29,6 +28,16 @@ class Chiri {
 
         _defineProperty(this, "forces", void 0);
 
+        _defineProperty(this, "img", void 0);
+
+        _defineProperty(this, "imgLoaded", void 0);
+
+        this.img = new Image();
+        this.img.src = "assets/flappy/bird.png";
+        this.img.onload = () => {
+            this.imgLoaded = true;
+        }
+
         this.max_height = 6;
         this.y = 8; // metres from ground level
 
@@ -41,7 +50,7 @@ class Chiri {
 
         this.jump_force_value = 1000; // Newton
 
-        this.size = 0.20;
+        this.size = 0.40;
         this.forces = {
             gravity: this.mass * this.gravity
         };
@@ -50,34 +59,26 @@ class Chiri {
     reset() {
         this.y = 8;
         this.removeForce();
-        this.velocity = 0; // this.last_time = 0;
+        this.velocity = 0;
     }
 
     getForce() {
         let total_force = 0;
         Object.keys(this.forces).forEach((key, index) => {
             total_force += this.forces[key];
-        }); // console.log("Force: " + total_force);
-
+        });
         return total_force;
     }
 
     draw(canvas_height, canavs_width, ctx, size) {
-        // console.log("ok");
-
-        /*
-        max_height * x = canvas_height;
-        x = canvas_height / max_height
-        virtual_ht * x = real_ht
-        */
         size = to_pixel(this.size, this.max_height, canvas_height);
         ctx.fillStyle = "red";
         let x0 = canavs_width / 2 - size / 2;
         let y0 = canvas_height - canvas_height / this.max_height * this.y - size / 2;
         let x1 = size;
-        let y1 = size / 2 + size / 2; // console.log(x0, y0, x1, y1);
+        let y1 = size / 2 + size / 2;
 
-        ctx.fillRect(x0, y0, x1, y1);
+        ctx.drawImage(this.img, x0, y0, x1, y1);
     }
 
     update(time) {
@@ -95,7 +96,7 @@ class Chiri {
         let calc = this.y + displacement;
         this.curr_y = calc >= 0 ? calc : 0;
         this.velocity = final_velocity;
-        this.last_time = time; // console.log(`Acceleration ${acceleration} y ${this.y} Displacement ${displacement}`)
+        this.last_time = time;
     }
 
     set curr_y(val) {
@@ -117,7 +118,6 @@ class Chiri {
     }
 
     add_jump_force() {
-        // console.log("Jump force added");
         this.forces["jump"] = this.jump_force_value;
     }
 
@@ -126,12 +126,6 @@ class Chiri {
     }
 
 }
-/**
- *
- *
- *
- */
-
 
 class GameView {
     constructor(canvas) {
@@ -143,11 +137,24 @@ class GameView {
 
         _defineProperty(this, "canvas_element", void 0);
 
+        _defineProperty(this, "backgroundImage", void 0);
+
+        _defineProperty(this, "backgroundImageLoaded", void 0);
+
+        this.startTextColor = "#1133ff"
+        this.overTextColor = "#dd1122"
+        this.backgroundImage = new Image();
+        this.backgroundImage.src = "assets/flappy/background.png"
+        this.backgroundImage.onload = () => {
+            this.backgroundImageLoaded = true;
+        }
         this.canvas_element = canvas;
         this.ctx = canvas.getContext('2d');
         this.updateDimensions();
         this.canavs_width = canvas.width;
         this.canvas_height = canvas.height;
+
+        $(this.canvas_element).css("image-rendering", "crisp-edges");
     }
 
     get canavs_width() {
@@ -173,30 +180,39 @@ class GameView {
     }
 
     clear() {
-        this.ctx.fillStyle = "white";
-        this.ctx.fillRect(0, 0, this.canavs_width, this.canvas_height);
+        // this.ctx.fillStyle = "white";
+        this.ctx.drawImage(this.backgroundImage, 0, 0, this.canavs_width, this.canvas_height);
     }
 
     display_start_screen() {
         let ctx = this.ctx;
-        ctx.fillStyle = "Red";
-        ctx.font = "30px Arial";
-        ctx.fillText("Flapy Chirdi, Click to start", 10, 100);
+        ctx.fillStyle = this.startTextColor;
+        ctx.font = "bold 30px Arial";
+        ctx.fillText("CLICK TO START", 10, 100);
     }
 
     display_over_screen() {
         let ctx = this.ctx;
-        ctx.font = "30px Arial";
-        ctx.fillText("Game Over, click to restart", 10, 100);
+        ctx.fillStyle = this.overTextColor;
+        ctx.font = "bold 30px Arial";
+        ctx.fillText("GAME OVER", 10, 100);
+    }
+
+    display_score(score) {
+        let ctx = this.ctx;
+        ctx.fillStyle = this.startTextColor;
+        ctx.font = "bold 30px Arial";
+        ctx.fillText(score, 10, 70);
     }
 
 }
 
 class Environment {
     constructor(game) {
-        this.pipe_distance = 2;
-        this.window_width = 5;
-        this.current_velocity = -1;
+        this.numPoles = 0;
+        this.pipe_distance = 2; // distance between pipes in meteres
+        this.window_width = 5; // width of window in meteres
+        this.current_velocity = -1; // current velocity in m/s
         this.pole_queue = [];
         this.last_time = 0;
         this.x_padding = 0.2;
@@ -216,7 +232,7 @@ class Environment {
     }
 
     reset() {
-        // alert("Empty pole queue?");
+        this.numPoles = 0;
         this.pole_queue = [];
         this.push_to_pole_queue();
         this.push_to_pole_queue();
@@ -226,9 +242,8 @@ class Environment {
     }
 
     push_to_pole_queue() {
-        let last_pos = this.pole_queue.length === 0 ? this.window_width + this.window_width + this.x_padding : this.pole_queue[this.pole_queue.length - 1].x; // console.log(`last_pos: ${last_pos}`);
-
-        this.pole_queue.push(new Pole(last_pos + this.pipe_distance, this));
+        let last_pos = this.pole_queue.length === 0 ? this.window_width + this.window_width + this.x_padding : this.pole_queue[this.pole_queue.length - 1].x;
+        this.pole_queue.push(new Pole(last_pos + this.pipe_distance, this, ++this.numPoles));
     }
 
     pop_to_pole_queue() {
@@ -236,11 +251,11 @@ class Environment {
     }
 
     update(time) {
-        let time_change = time - this.last_time; // console.log(`time_change ${time_change}`)
+        let time_change = time - this.last_time;
 
-        time_change = time_change / 1000; // console.log(`time_change ${time_change}`)
+        time_change = time_change / 1000;
 
-        let displacement = this.current_velocity * time_change; // console.log(`Displacement: ${displacement} current_velocity: ${this.current_velocity} time_change: ${time_change} time: ${time} last_time: ${this.last_time}`);
+        let displacement = this.current_velocity * time_change;
 
         this.pole_queue.forEach(pole => {
             pole.x += displacement;
@@ -262,7 +277,6 @@ class Environment {
     }
 
     draw() {
-        // console.log(`Draw environment @ ${this.pole_queue.length}`)
         this.pole_queue.forEach(pole => {
             pole.draw();
         });
@@ -271,7 +285,8 @@ class Environment {
 }
 
 class Pole {
-    constructor(x, env) {
+    constructor(x, env, poleIndex) {
+        this.poleIndex = poleIndex;
         // instance vars
         this.pole_gap = 2;
         this.vertical_buffer = 0.1;
@@ -281,7 +296,12 @@ class Pole {
         this.start_gap;
         this.end_gap;
         this.pole_width = 0.5; // eo instance vars
-
+        this.poleImageAbove = new Image();
+        this.poleImageBelow = new Image();
+        this.poleImageAbove.src = "assets/flappy/pipe-above.png"
+        this.poleImageBelow.src = "assets/flappy/pipe-below.png"
+        this.poleImageAbove.onload = () => { this.poleImageAboveLoaded = true }
+        this.poleImageBelow.onload = () => { this.poleImageBelowLoaded = true }
         this.x = x;
         this.env = env;
         this.pos_multiplier = this.env.game.game_view.canavs_width / this.env.window_width;
@@ -306,48 +326,34 @@ class Pole {
     }
 
     draw() {
-        let ctx = this.env.game.game_view.ctx; // console.error(`Draw pole @ x ${this.x} with multiplier ${this.pos_multiplier}`)
+        let ctx = this.env.game.game_view.ctx;
 
         ctx.fillStyle = "green";
-        let x0 = this.x * this.pos_multiplier - this.pole_width; // console.log(x0);
+        let x0 = this.x * this.pos_multiplier - this.pole_width;
 
-        let x1 = this.to_physical_width(this.pole_width); // console.log(x1);
+        let x1 = this.to_physical_width(this.pole_width);
 
         let length_up = this.env.game.game_view.canvas_height - this.to_physical_height(this.end_gap);
-        let length_down = this.to_physical_height(this.start_gap); // let y0 = this.env.game_view.canavs_width - this.to_physical_height(this.end_gap);÷
+        let length_down = this.to_physical_height(this.start_gap);
 
         let y0 = 0;
-        let y1 = length_up; // console.log(y0);
-        // console.log(`Pole x: ${this.x}`);
-        // console.log(`pos mul: ${this.pos_multiplier}`);
-        // let y1 = this.env.game_view.canvas_height;
-        // console.log(`${y1} and end_gap ${this.to_physical_width(this.end_gap)} winht ${JSON.stringify(this.env.game.game_view.canvas_height)}`);
-        // console.log(`x0: ${x0} y0: ${y0} x0: ${x1} y1: ${y1} `);
+        let y1 = length_up;
 
-        ctx.fillRect(x0, y0, x1, y1); // y0 = this.env.game_view.canavs_width;
+        let aboveHeightPixels = (this.poleImageBelow.width) * (y1 / x1);
+        ctx.drawImage(this.poleImageAbove, 0, y0 + this.poleImageAbove.height - aboveHeightPixels, this.poleImageAbove.width, aboveHeightPixels, x0, y0, x1, y1);
 
-        y0 = this.env.game.game_view.canavs_width - this.to_physical_height(this.start_gap); //  = this.to_physical_height(this.pole_width);
+        y0 = this.env.game.game_view.canavs_width - this.to_physical_height(this.start_gap);
 
         y1 = length_down;
-        ctx.fillRect(x0, y0, x1, y1); // console.log(`x0: ${x0} y0: ${y0} x0: ${x1} y1: ${y1} `);
-        // let x0 = this.x * this.pos_multiplier;
-        // let y0 = this.env.game_view.canvas_height - 200;
-        // let x1 =  20;
-        // let y1 = 200;
-        // ctx.fillRect(x0, y0, x1, y1);
-        // x0 = this.x * this.pos_multiplier;
-        // y0 = 0;
-        // x1 = 20;
-        // y1 = 200;
-        // ctx.fillRect(x0, y0, x1, y1);
+        ctx.drawImage(this.poleImageBelow, 0, 0, this.poleImageBelow.width, (this.poleImageBelow.width) * (y1 / x1), x0, y0, x1, y1);
     }
 
     to_physical_height(virtual_ht) {
-        return virtual_ht * (this.env.game.game_view.canvas_height / this.env.window_height); // return virtual_ht * this.pos_multiplier;
+        return virtual_ht * (this.env.game.game_view.canvas_height / this.env.window_height);
     }
 
     to_physical_width(virtual_wt) {
-        return virtual_wt * (this.env.game.game_view.canavs_width / this.env.window_width); // return virtual_wt * this.pos_multiplier;
+        return virtual_wt * (this.env.game.game_view.canavs_width / this.env.window_width);
     }
 
 }
@@ -362,6 +368,21 @@ class GameController {
         });
         $(this.game.game_view.canvas_element).on("mouseup", () => {
             this.mouseup_handler();
+        });
+        $(window).on("keypress", (e) => {
+            if (e.originalEvent.code === "Space") {
+                this.click_handler();
+            }
+        });
+        $(window).on("keydown", (e) => {
+            if (e.originalEvent.code === "Space") {
+                this.mousedown_handler();
+            }
+        });
+        $(window).on("keyup", (e) => {
+            if (e.originalEvent.code === "Space") {
+                this.mouseup_handler();
+            }
         });
         $(this.game.game_view.canvas_element).on("touchstart", () => {
             this.mousedown_handler();
@@ -378,7 +399,6 @@ class GameController {
         switch (this.game.STATE) {
             case this.game.STATES.RUNNING:
                 {
-                    // console.log("adding jump force");
                     this.game.bird.add_jump_force();
                     break;
                 }
@@ -401,8 +421,6 @@ class GameController {
     }
 
     click_handler() {
-        // alert("Click");
-        // alert(`State: ${this.game.STATE}`);
         switch (this.game.STATE) {
             case this.game.STATES.RUNNING:
                 {
@@ -411,14 +429,12 @@ class GameController {
 
             case this.game.STATES.STOPPED:
                 {
-                    // alert("Start from new");                
                     this.game.start();
                     break;
                 }
 
             case this.game.STATES.NEW:
                 {
-                    // alert("Start from new");
                     this.game.start();
                     break;
                 }
@@ -456,11 +472,10 @@ class GameController {
     }
 
 }
+
 /**
  * Starts the main loop for the game with given Flappy Chiri and GameView
  */
-
-
 class Game {
     constructor(game_view) {
         _defineProperty(this, "progress", void 0);
@@ -486,6 +501,7 @@ class Game {
         _defineProperty(this, "kill_immunity", void 0);
 
         _defineProperty(this, "start_grace_period", void 0);
+        this.score = 0;
 
         // instance
         this.game_start_timestamp = 0;
@@ -513,22 +529,16 @@ class Game {
 
 
     start() {
-        // alert("Game started");
-        // console.log("Game started");
         // lazy reset, just create them over again.
         // js has to have a garbage collector right?
         this.game_start_timestamp = this.lastRender;
         this.STATE = this.STATES.RUNNING;
         this.progress = 0;
-        this.last_collision = false; // delete this.bird;
-
-        this.bird.reset(); // this.bird = new Chiri();
-        // this.controller = new GameController(this);
-
-        this.game_env.reset(); // delete this.game_env;
-        // this.game_env = new Environment(game);
-
+        this.last_collision = false;
+        this.bird.reset();
+        this.game_env.reset();
         this.kill_immunity = true;
+        this.score = 0;
     }
 
     initialize() {
@@ -550,6 +560,9 @@ class Game {
 
 
         this.game_env.pole_queue.forEach(pole => {
+            if (this.past_middle_point(pole)) {
+                this.score = Math.max(this.score, pole.poleIndex);
+            }
             if (this.check_collission(pole, this.bird)) {
                 // console.error("collision");
                 if (!this.last_collision) {
@@ -613,6 +626,7 @@ class Game {
                     this.bird.draw(this.game_view.canavs_width, this.game_view.canvas_height, this.game_view.ctx, 20); // console.error("stopped");
 
                     this.game_view.display_over_screen();
+                    this.game_view.display_score(this.score);
                     break;
                 }
                 ;
@@ -620,6 +634,7 @@ class Game {
             case this.STATES.PAUSED:
                 {
                     this.bird.draw(this.game_view.canavs_width, this.game_view.canvas_height, this.game_view.ctx, 20);
+                    this.game_view.display_score(this.score);
                     break;
                 }
                 ;
@@ -627,6 +642,7 @@ class Game {
             case this.STATES.RUNNING:
                 {
                     this.bird.draw(this.game_view.canavs_width, this.game_view.canvas_height, this.game_view.ctx, 20);
+                    this.game_view.display_score(this.score);
                     break;
                 }
                 ;
@@ -642,6 +658,10 @@ class Game {
                 { }
                 ;
         }
+    }
+
+    past_middle_point(pole) {
+        return pole.x < (this.game_env.window_width / 2);
     }
 
     check_collission(pole, chiri) {
@@ -668,11 +688,10 @@ class Game {
     }
 
     game_loop(timestamp) {
-        // console.log(`State: ${this.STATE}`);
-        this.progress = timestamp - this.lastRender; // console.log(this.lastRender);
+        this.progress = timestamp - this.lastRender;
 
         this.draw();
-        this.lastRender = timestamp; // this.displayText(`State: ${this.STATE} Immunity: ${this.kill_immunity} LastRender: ${this.lastRender} \nProgress: ${this.progress}`);
+        this.lastRender = timestamp;
 
         window.requestAnimationFrame(this.game_loop.bind(this));
     }
