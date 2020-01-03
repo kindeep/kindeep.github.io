@@ -1,3 +1,4 @@
+import { YouTubePlayerModule } from '@angular/youtube-player';
 import { MatRadioModule } from '@angular/material/radio';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,7 @@ import { ProjectComponent } from './project/project.component';
 // angular material animation modules 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // material angular component modules 
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatRippleModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatRippleModule } from '@angular/material';
 // material card component 
 import { MatCardModule } from '@angular/material/card';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -30,6 +31,23 @@ const appRoutes: Routes = [
 ];
 declare var $: any;
 
+// 1. Import the libs you need
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
+
+const config = {
+  apiKey: 'AIzaSyBfZzkJ4e7ckAguqHsW-jw5G8dL_xZjchs',
+  authDomain: 'kindeep-me.firebaseapp.com',
+  databaseURL: 'https://kindeep-me.firebaseio.com',
+  projectId: 'kindeep-me',
+  storageBucket: 'kindeep-me.appspot.com',
+  messagingSenderId: '75554156675',
+  appId: '1:75554156675:web:39ec6afedae6e58bd62bb6',
+  measurementId: 'G-3L0Z29VLS6'
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +77,13 @@ declare var $: any;
     MatRadioModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatRippleModule
+    MatRippleModule,
+    // Initialize firebase
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule, // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule, // storage
+    YouTubePlayerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

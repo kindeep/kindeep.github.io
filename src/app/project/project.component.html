@@ -1,4 +1,38 @@
-<mat-card color='primary'>
-  <mat-card-title>Title</mat-card-title>
-  <mat-card-content>Content </mat-card-content>
+<div class = "padding-div">
+<mat-card #matCard>
+  <img
+    *ngIf="project.cardImage && project.cardImage.type === 'url'"
+    mat-card-image
+    src="{{ project.cardImage.url }}"
+    alt="{{ project.cardImage.alt }}"
+  />
+
+  <div *ngIf="project.cardImage && project.cardImage.type === 'html'">
+    <span [innerHTML]="project.cardImage.html"></span>
+  </div>
+
+  <iframe
+    mat-card-image
+    #ytPlayer
+    *ngIf="project.cardImage && project.cardImage.type === 'youtube'"
+    mat-card-image
+    width="560"
+    height="315"
+    [src]="getYtURL()"
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+
+  <mat-card-content>
+    <mat-card-title>{{ project.title }}</mat-card-title>
+    <mat-card-subtitle>{{ project.subtitle }}</mat-card-subtitle>
+    <span [innerHTML]="project.descriptionHTML"></span>
+  </mat-card-content>
+  <mat-card-actions>
+    <a *ngFor="let link of project.links" mat-button href="{{ link.href }}">
+      <span [innerHTML]="link.textHTML"></span>
+    </a>
+  </mat-card-actions>
 </mat-card>
+</div>
