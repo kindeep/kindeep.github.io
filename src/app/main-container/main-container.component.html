@@ -15,7 +15,12 @@
       <div [style.display]="displaySidebarToggle ? 'none' : 'block'">
         <a mat-button [routerLink]="'/'"> Home </a>
         <a mat-button [routerLink]="'/projects'"> Projects </a>
-        <a mat-button href="https://firebasestorage.googleapis.com/v0/b/kindeep-me.appspot.com/o/resume_kindeep.pdf?alt=media&token=ea8d552a-e6dc-40a6-bb73-9934efc21a91"> Resume </a>
+        <a
+          mat-button
+          href="https://firebasestorage.googleapis.com/v0/b/kindeep-me.appspot.com/o/resume_kindeep.pdf?alt=media&token=ea8d552a-e6dc-40a6-bb73-9934efc21a91"
+        >
+          Resume
+        </a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -29,7 +34,11 @@
         <a mat-list-item (click)="sidenav.toggle()" [routerLink]="'/projects'">
           Projects
         </a>
-        <a mat-list-item (click)="sidenav.toggle()" href="/assets/resume.pdf">
+        <a
+          mat-list-item
+          (click)="sidenav.toggle()"
+          href="/https://firebasestorage.googleapis.com/v0/b/kindeep-me.appspot.com/o/resume_kindeep.pdf?alt=media&token=ea8d552a-e6dc-40a6-bb73-9934efc21a91"
+        >
           Resume
         </a>
       </mat-nav-list>
