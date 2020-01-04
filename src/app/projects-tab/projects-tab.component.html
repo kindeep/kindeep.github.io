@@ -1,4 +1,14 @@
 <div class="container">
+  <div class="padding-div">
+    <mat-card>
+      <mat-card-title>Personal Projects</mat-card-title>
+      <mat-card-content
+        >Most of these projects can be found on my
+        <a href="https://github.com/kargq"> GitHub</a> page.</mat-card-content
+      >
+    </mat-card>
+  </div>
+
   <app-project
     *ngFor="let project of projects | async"
     [project]="project"
