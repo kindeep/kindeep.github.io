@@ -75,8 +75,6 @@ THE SOFTWARE.
 
 @angular/material/core
 
-@angular/material/icon
-
 @angular/material/list
 
 @angular/material/sidenav
