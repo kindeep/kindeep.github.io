@@ -26,8 +26,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const appRoutes: Routes = [
   { path: 'projects', component: ProjectsTabComponent },
   { path: 'home', component: HomeTabComponent },
-  { path: '', component: HomeTabComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '', component: ProjectsTabComponent },
+  { path: '**', component: HomeTabComponent }
 ];
 declare var $: any;
 
