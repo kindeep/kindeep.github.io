@@ -1,0 +1,8 @@
+<ng-container *ngIf="items">
+  <ng-container *ngFor="let item of getTiles()">
+    <ng-container *ngIf="!!item?.template">
+      <div class="time">{{ item.date | date }}</div>
+      <ng-container *ngTemplateOutlet="item.template">bbbbbbb</ng-container>
+    </ng-container>
+  </ng-container>
+</ng-container>

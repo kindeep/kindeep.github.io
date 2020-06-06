@@ -13,9 +13,7 @@ export class HomeTabComponent implements OnInit, AfterViewInit {
   @ViewChild('tictactoec', { static: false }) ticChild: ElementRef;
   @ViewChild('flappycanvas', { static: false }) flappyChild: ElementRef;
 
-
-  constructor() {
-  }
+  constructor() {}
 
   ngAfterViewInit() {
     console.log('ticParent');
@@ -24,7 +22,5 @@ export class HomeTabComponent implements OnInit, AfterViewInit {
     startGame(this.flappyChild.nativeElement);
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

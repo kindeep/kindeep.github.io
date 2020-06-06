@@ -6,11 +6,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
-// angular material animation modules 
+// angular material animation modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// material angular component modules 
+// material angular component modules
 import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatRippleModule } from '@angular/material';
-// material card component 
+// material card component
 import { MatCardModule } from '@angular/material/card';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   { path: 'projects', component: ProjectsTabComponent },
   { path: 'home', component: HomeTabComponent },
   { path: '', component: ProjectsTabComponent },
-  { path: '**', component: HomeTabComponent }
+  { path: '**', component: HomeTabComponent },
 ];
 declare var $: any;
 
@@ -36,7 +36,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-
+import { TimelineComponent } from './shared/timeline/timeline.component';
+import { TimelineItemComponent } from './shared/timeline/timeline-item/timeline-item.component';
 
 const config = {
   apiKey: 'AIzaSyBfZzkJ4e7ckAguqHsW-jw5G8dL_xZjchs',
@@ -46,7 +47,7 @@ const config = {
   storageBucket: 'kindeep-me.appspot.com',
   messagingSenderId: '75554156675',
   appId: '1:75554156675:web:39ec6afedae6e58bd62bb6',
-  measurementId: 'G-3L0Z29VLS6'
+  measurementId: 'G-3L0Z29VLS6',
 };
 @NgModule({
   declarations: [
@@ -56,7 +57,9 @@ const config = {
     ProjectsTabComponent,
     MenuToggleComponent,
     MainContainerComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TimelineComponent,
+    TimelineItemComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -83,9 +86,9 @@ const config = {
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    YouTubePlayerModule
+    YouTubePlayerModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -6,7 +6,7 @@ import { ProjectSnapshot } from '../firebase/project-snapshot';
 @Component({
   selector: 'app-projects-tab',
   templateUrl: './projects-tab.component.html',
-  styleUrls: ['./projects-tab.component.scss']
+  styleUrls: ['./projects-tab.component.scss'],
 })
 export class ProjectsTabComponent implements OnInit, AfterViewInit {
   projects: Observable<ProjectSnapshot[]>;
@@ -19,11 +19,7 @@ export class ProjectsTabComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  ngAfterViewInit() {
-
-
-  }
-
+  ngAfterViewInit() {}
 }

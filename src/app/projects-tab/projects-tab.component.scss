@@ -1,63 +1,44 @@
 .col1 {
-    grid-area: c1;
+  grid-area: c1;
 }
 
 .col2 {
-    grid-area: c2;
+  grid-area: c2;
 }
 
 .col3 {
-    grid-area: c3;
+  grid-area: c3;
 }
 
 .container {
-    column-gap: 0px;
+  display: grid;
+  column-gap: normal;
 }
-
 
 @media screen and (min-width: 100em) {
-    .container {
-        -webkit-column-count: 4;
-        /* Chrome, Safari, Opera */
-        -moz-column-count: 4;
-        /* Firefox */
-        column-count: 4;
-    }
+  .container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
-
-
 
 @media screen and (min-width: 60em) and (max-width: 100em) {
-    .container {
-        -webkit-column-count: 3;
-        /* Chrome, Safari, Opera */
-        -moz-column-count: 3;
-        /* Firefox */
-        column-count: 3;
-    }
+  .container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
-
 @media screen and (min-width: 34em) and (max-width: 60em) {
-    .container {
-        -webkit-column-count: 2;
-        /* Chrome, Safari, Opera */
-        -moz-column-count: 2;
-        /* Firefox */
-        column-count: 2;
-    }
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media screen and (min-width: 10em) and (max-width: 20em) {
-    .container {
-        -webkit-column-count: 1;
-        /* Chrome, Safari, Opera */
-        -moz-column-count: 1;
-        /* Firefox */
-        column-count: 1;
-    }
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .padding-div {
-    padding: 8px;
+  padding: 8px;
 }

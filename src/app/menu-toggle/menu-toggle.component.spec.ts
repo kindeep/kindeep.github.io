@@ -8,9 +8,8 @@ describe('MenuToggleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuToggleComponent ]
-    })
-    .compileComponents();
+      declarations: [MenuToggleComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
