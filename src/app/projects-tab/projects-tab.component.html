@@ -8,17 +8,11 @@
       >
     </mat-card>
   </div>
-
-  <!-- <app-project
-    *ngFor="let project of projects | async"
-    [project]="project"
-  ></app-project> -->
 </div>
-  <app-timeline-item></app-timeline-item>
-  
+<app-timeline-item></app-timeline-item>
+
 <app-timeline>
-  <app-timeline-item>Sup</app-timeline-item>
-  <app-timeline-item>Sup</app-timeline-item>
-  <app-timeline-item>Sup</app-timeline-item>
-  <app-timeline-item>Sup</app-timeline-item>
+  <app-timeline-item *ngFor="let project of projects | async" [date]="project.time.toDate()">
+    <app-project [project]="project"></app-project>
+  </app-timeline-item>
 </app-timeline>

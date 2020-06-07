@@ -1,4 +1,5 @@
 export interface ProjectSnapshot {
+  time: firebase.firestore.Timestamp;
   title: string;
   subtitle: string;
   descriptionHTML: string;
