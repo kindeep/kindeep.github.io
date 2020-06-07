@@ -1,31 +1,37 @@
 $line-size: 1rem;
 $line-color: #ff2222;
 
-.timeline-time-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 4rem;
-  flex: 0 0 8rem;
-  margin: 0 2rem;
+.timeline-item-grid {
+  display: grid;
+  grid-template-columns: 8rem 2rem auto;
+  grid-template-rows: auto 2rem auto;
+  grid-template-areas:
+    '. year .'
+    'time dot content'
+    '. line content';
 }
 
-.timeline-item-container {
+.year-divider {
+  grid-area: year;
   display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: $line-color;
+  font-weight: bold;
 }
 
 .timeline-item {
+  grid-area: content;
   flex: 1 1 auto;
   min-width: 0;
 }
 
-.line-centering-container {
-}
-
 .line-container {
+  grid-area: line;
   flex: 1 1 auto;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .line {
@@ -35,8 +41,15 @@ $line-color: #ff2222;
   background-size: 100% auto;
 }
 
+.time-dot-container {
+  display: flex;
+  flex-direction: column;
+  grid-area: dot;
+  align-items: center;
+}
+
 .time-dot {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   width: $line-size;
   background-image: url('../../../assets/daLongLineDot.svg');
   background-position: center;
@@ -44,34 +57,11 @@ $line-color: #ff2222;
   background-repeat: no-repeat;
 }
 
-.time-container {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.month-divider-container {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.timeline-container {
-  margin: 2rem;
-}
-
 .time {
   display: flex;
-  align-items: center;
-  margin-right: 1rem;
-}
-
-.year-divider {
-  display: flex;
-  align-items: center;
   justify-content: flex-end;
-  color: $line-color;
-  font-weight: bold;
+  align-content: center;
+  align-items: center;
+  grid-area: time;
+  margin-right: 1rem;
 }
