@@ -91,24 +91,3 @@ $line-color: #ff2222;
   color: var(--ksk-accent-text-color);
   margin-left: calc(var(--space-4) * -1);
 }
-
-// $arrow-size: 8px;
-
-// .time:after,
-// .time:before {
-//   right: 100%;
-//   top: 50%;
-//   border: solid transparent;
-//   content: ' ';
-//   height: 0;
-//   width: 0;
-//   position: absolute;
-//   pointer-events: none;
-// }
-
-// .time:before {
-//   border-color: rgba(194, 225, 245, 0);
-//   border-right-color: var(--ksk-accent-color);
-//   border-width: $arrow-size;
-//   margin-top: -$arrow-size;
-// }

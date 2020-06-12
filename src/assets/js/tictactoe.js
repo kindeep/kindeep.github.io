@@ -3,19 +3,14 @@ function myTest() {
 }
 
 function TicTacToe(canvas) {
-  // alert(canvas);
   let margin = 8;
-  // let canvas = document.getElementById("tictactoe");
   var boardArray = create2DArray();
   var CANVAS_HEIGHT, CANVAS_WIDTH;
   var turn = 0;
   var victory = false;
   var randomAutoMoves = true;
   var ignoreBoardClicks = 1;
-  // let parentCard = document.getElementById('tictacp');
 
-  // print("tictactoe.js");
-  // window.onload = function () {
   initializeBoard();
   drawCanvas();
   resizeCanvas();
@@ -23,8 +18,6 @@ function TicTacToe(canvas) {
   randomMove();
   randomMove();
   randomMove();
-  // setInterval(randomMove, 5000);
-  // };
 
   function playTurn(x, y) {
     if (victory === true) {
@@ -61,7 +54,6 @@ function TicTacToe(canvas) {
       let offset = $(canvas).offset();
       let x = event.pageX - offset.left;
       let y = event.pageY - offset.top;
-      console.log('x: ' + x + ' y: ' + y);
       let x_click = -1,
         y_click = -1;
       if (x < CANVAS_WIDTH / 3 && x > 0) y_click = 0;
@@ -218,53 +210,15 @@ function TicTacToe(canvas) {
     }
   }
 
-  // window.onresize = function onresize() {
-  //     resizeCanvas();
-  // };
-
-  // window.addEventListener('resize', () => {
-  //     resizeCanvas();
-  // }, true);
-  // $(window).resize(() => {
-  //     resizeCanvas();
-  // })
-
   function resizeCanvas() {
-    console.log('resize canvas called');
-    // CANVAS_HEIGHT = Math.max(canvas.clientHeight, canvas.clientWidth);
-    // CANVAS_WIDTH = Math.max(canvas.clientHeight, canvas.clientWidth);
-    // CANVAS_HEIGHT = canvas.clientWidth;
-    // CANVAS_HEIGHT = $(canvas).css('width');
-    // CANVAS_WIDTH = $(parentCard).width();
     CANVAS_WIDTH = $(canvas).width();
-    // CANVAS_WIDTH = $(parentCard).width();
     CANVAS_HEIGHT = $(canvas).height();
-    // alert(CANVAS_HEIGHT, CANVAS_WIDTH);
-    // CANVAS_WIDTH = CANVAS_WIDTH.substr(0, CANVAS_WIDTH.length - 2);
-    // CANVAS_HEIGHT = CANVAS_HEIGHT.substr(0, CANVAS_HEIGHT.length - 2);
     CANVAS_WIDTH = Math.max(CANVAS_HEIGHT, CANVAS_WIDTH);
     CANVAS_HEIGHT = Math.max(CANVAS_HEIGHT, CANVAS_WIDTH);
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
-    // canvas.clientWidth = CANVAS_WIDTH;
-    // canvas.clientHeight = CANVAS_HEIGHT;
-    // $(canvas).css('height', CANVAS_HEIGHT);
-    // $(canvas).css('width', CANVAS_WIDTH);
-    // console.log(CANVAS_HEIGHT + " X " + CANVAS_WIDTH);
+
     drawCanvas();
-    // let w = window.innerWidth;
-    // let h = window.innerHeight;
-    // let maxsize = (2 * h) / 3;
-    // if (w - 32 < maxsize) {
-    //     canvas.width = w - 32;
-    //     canvas.height = w - 32;
-    // } else {
-    //     canvas.width = maxsize;
-    //     canvas.height = maxsize;
-    // }
-    // CANVAS_HEIGHT = canvas.height;
-    // CANVAS_WIDTH = canvas.width;
-    // drawCanvas();
   }
 
   function create2DArray() {

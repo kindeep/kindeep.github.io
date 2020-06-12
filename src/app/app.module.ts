@@ -43,7 +43,6 @@ import { TimelineComponent } from './shared/timeline/timeline.component';
 import { TimelineItemComponent } from './shared/timeline/timeline-item/timeline-item.component';
 import { MomentModule } from 'ngx-moment';
 import { MatChipsModule } from '@angular/material/chips';
-import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 
 const config = {
   apiKey: 'AIzaSyBfZzkJ4e7ckAguqHsW-jw5G8dL_xZjchs',
@@ -95,7 +94,6 @@ const config = {
     YouTubePlayerModule,
     MomentModule,
     MatChipsModule,
-    AnimateOnScrollModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

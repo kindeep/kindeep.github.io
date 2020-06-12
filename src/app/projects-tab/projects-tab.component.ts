@@ -1,5 +1,6 @@
+import { TimelineItemComponent } from './../shared/timeline/timeline-item/timeline-item.component';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProjectSnapshot } from '../firebase/project-snapshot';
 
@@ -9,14 +10,10 @@ import { ProjectSnapshot } from '../firebase/project-snapshot';
   styleUrls: ['./projects-tab.component.scss'],
 })
 export class ProjectsTabComponent implements OnInit, AfterViewInit {
-  projects: Observable<ProjectSnapshot[]>;
+  projects$: Observable<ProjectSnapshot[]>;
+  @ViewChildren('timelineItem') timelineItems: TimelineItemComponent[];
   constructor(db: AngularFirestore) {
-    this.projects = db.collection('projects').valueChanges() as Observable<ProjectSnapshot[]>;
-    console.log('Log pojects');
-    this.projects.forEach((proj) => {
-      console.log('Project');
-      console.log(proj);
-    });
+    this.projects$ = db.collection('projects').valueChanges() as Observable<ProjectSnapshot[]>;
   }
 
   ngOnInit() {}

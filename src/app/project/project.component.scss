@@ -23,6 +23,7 @@ mat-card {
 .yt-player {
   border-radius: var(--border-radius);
   max-height: 20em;
+  max-width: 100%;
 }
 
 .title {
@@ -67,29 +68,6 @@ mat-card {
 }
 
 @keyframes gradient {
-  0% {
-    background-color: transparent;
-  }
-  39% {
-    background-color: #e73c7e;
-    border: var(--border-size) solid transparent;
-  }
-  40% {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    background-position: 10% 50%;
-  }
-  100% {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    background-position: 40% 50%;
-  }
-}
-
-.scroll-appear {
-}
-
-@keyframes scroll-appear-class-name {
   0% {
     background-color: transparent;
   }

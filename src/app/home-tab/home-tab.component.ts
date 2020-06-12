@@ -16,8 +16,6 @@ export class HomeTabComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() {
-    console.log('ticParent');
-    console.log(this.ticChild);
     new TicTacToe(this.ticChild.nativeElement);
     startGame(this.flappyChild.nativeElement);
   }

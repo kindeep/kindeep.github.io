@@ -24,7 +24,6 @@ export class TimelineComponent implements OnInit {
         return { item };
       }
     });
-    console.log({ result });
     return result.sort((a, b) => b.item.date.getTime() - a.item.date.getTime());
   }
 }

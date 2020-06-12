@@ -5,7 +5,9 @@
 <app-timeline-item></app-timeline-item>
 
 <app-timeline>
-  <app-timeline-item *ngFor="let project of projects | async" [date]="project.time.toDate()">
-    <app-project [project]="project"></app-project>
-  </app-timeline-item>
+  <ng-container *ngIf="projects$ | async as projects">
+    <app-timeline-item #timelineItem *ngFor="let project of projects" [date]="project.time.toDate()">
+      <app-project [project]="project"></app-project>
+    </app-timeline-item>
+  </ng-container>
 </app-timeline>
