@@ -38,10 +38,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { TimelineComponent } from './shared/timeline/timeline.component';
 import { TimelineItemComponent } from './shared/timeline/timeline-item/timeline-item.component';
-import { TimelineVerticalLineComponent } from './shared/timeline/timeline-vertical-line/timeline-vertical-line.component';
-import { TimelineDotComponent } from './shared/timeline/timeline-dot/timeline-dot.component';
-import { TimelineTextComponent } from './shared/timeline/timeline-text/timeline-text.component';
 import { MomentModule } from 'ngx-moment';
+import { MatChipsModule } from '@angular/material/chips';
+import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 
 const config = {
   apiKey: 'AIzaSyBfZzkJ4e7ckAguqHsW-jw5G8dL_xZjchs',
@@ -64,9 +63,6 @@ const config = {
     PageNotFoundComponent,
     TimelineComponent,
     TimelineItemComponent,
-    TimelineVerticalLineComponent,
-    TimelineDotComponent,
-    TimelineTextComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -95,6 +91,8 @@ const config = {
     AngularFireStorageModule, // storage
     YouTubePlayerModule,
     MomentModule,
+    MatChipsModule,
+    AnimateOnScrollModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

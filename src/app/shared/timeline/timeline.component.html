@@ -2,11 +2,13 @@
   <ng-container *ngIf="items">
     <ng-container *ngFor="let tile of getTiles()">
       <div class="timeline-item-grid">
-        <ng-container *ngIf="tile.monthDivider">
+        <div class="year-divider-container" *ngIf="tile.monthDivider">
           <div class="year-divider">{{ tile.item.date | amDateFormat: 'YYYY' }}</div>
-        </ng-container>
+        </div>
         <ng-container *ngIf="!!tile.item?.template">
-          <div class="time">{{ tile.item?.date | date }}</div>
+          <div class="time-container">
+            <span class="time shadow-1">{{ tile.item?.date | date }}</span>
+          </div>
           <div class="time-dot-container">
             <div class="time-dot"></div>
           </div>

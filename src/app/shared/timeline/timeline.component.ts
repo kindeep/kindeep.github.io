@@ -13,7 +13,7 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {}
 
   getTiles() {
-    const tiles = this.items.toArray().sort((a, b) => b.date.getTime() - a.date.getTime());
+    const tiles = this.items.toArray().sort((a, b) => a.date.getTime() - b.date.getTime());
     const occurDict = {};
     const result = tiles.map((item) => {
       const monthId = item.date.getFullYear();
@@ -25,6 +25,6 @@ export class TimelineComponent implements OnInit {
       }
     });
     console.log({ result });
-    return result;
+    return result.sort((a, b) => b.item.date.getTime() - a.item.date.getTime());
   }
 }

@@ -4,31 +4,42 @@
 // @import "~@angular/material/prebuilt-themes/purple-green.css";
 // @import "~bootstrap/scss/bootstrap.scss";
 
+:root {
+  --border-radius: 8px;
+  --border-radius-2: 4px;
+  --border-radius-3: 12px;
+  --space-2: 0.25rem;
+  --space-4: 0.5em;
+  --space-6: 0.75em;
+  --space-8: 1rem;
+  --space-16: 2rem;
+  --ksk-accent-color: #eeee00;
+  --ksk-accent-text-color: #333300;
+}
+
 .example-fill-remaining-space {
-    /* This fills the remaining space, by using flexbox. 
+  /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 body {
-    margin: 0;
-    background-color: #303030;
-
+  margin: 0;
+  background-color: #303030;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 a {
-    color: white;
-    font: bold;
+  color: white;
+  font: bold;
 }
 
 a:hover {
-    color: #eeeeee;
-    text-decoration: none;
-
+  color: #eeeeee;
+  text-decoration: none;
 }
 
 @import '~@angular/material/theming';
@@ -39,35 +50,40 @@ a:hover {
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-$custom-red: (50: #ffebee,
-    100: #ffcdd2,
-    200: #ef9a9a,
-    300: #e57373,
-    400: #ef5350,
-    500: #f44336,
-    600: #e53935,
-    700: #d32f2f,
-    800: #c62828,
-    900: #b71c1c,
-    A100: #ff8a80,
-    A200: #ff5252,
-    A400: #ff1744,
-    A700: #d50000,
-    contrast: (50: $dark-primary-text,
-        100: $dark-primary-text,
-        200: $dark-primary-text,
-        300: $dark-primary-text,
-        400: $dark-primary-text,
-        500: $light-primary-text,
-        600: $light-primary-text,
-        700: $light-primary-text,
-        800: $light-primary-text,
-        900: $light-primary-text,
-        A100: $dark-primary-text,
-        A200: $light-primary-text,
-        A400: $light-primary-text,
-        A700: $light-primary-text,
-    ));
+$custom-red: (
+  50: #ffebee,
+  100: #ffcdd2,
+  200: #ef9a9a,
+  300: #e57373,
+  400: #ef5350,
+  500: #f44336,
+  600: #e53935,
+  700: #d32f2f,
+  800: #c62828,
+  900: #b71c1c,
+  A100: #ff8a80,
+  A200: #ff5252,
+  A400: #ff1744,
+  A700: #d50000,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ),
+);
+
+$accent-color: #fbbc04;
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -86,62 +102,17 @@ $red-app-theme: mat-dark-theme($red-app-primary, $red-app-accent, $red-app-warn)
 // that you are using.
 @include angular-material-theme($red-app-theme);
 
-// Legacy styles from website v1
+:root {
+  --box-shadow-offset-x: 1px;
+  --box-shadow-offset-y: 1px;
+  --box-shadow-blur: 8px;
+  --box-shadow-spread: 0;
+  --box-shadow-color: #111;
+  --border-color: #aa2211;
+  --border-size: 2px;
+}
 
-// .navbar {
-//     background-color: #bb271a;
-// }
-
-// a {
-//     color: #bb271a;
-// }
-
-// .red-bt-fixed {
-//     background-color: #bb271a;
-//     color: #ffffff;
-
-// }
-
-// .red-bt-fixed:hover {
-//     background-color: #bb271a;
-//     color: #ffffff;
-
-// }
-
-// .nav-item:hover {
-//     color: black;
-// }
-
-// .site-card {
-//     background-color: #ffffff;
-// }
-
-// body {
-//     background-color: #e0e0e0;
-//     color: #000000;
-// }
-
-// .bg-grey {
-//     background-color: #cecece;
-// }
-
-// .bg-red-grey {
-//     background-color: #eadbda;
-// }
-
-// .card {
-//     border: 2px solid #bb271a;
-//     border-radius: 6px;
-// }
-
-// .site-red-border {
-//     border: 2px solid #bb271a;
-//     border-radius: 6px;
-// }
-
-// .ratio-mtn {
-//     object-fit: contain;
-//     max-height: 100%;
-//     width: 100%;
-//     height: auto;
-// }
+.shadow-1 {
+  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread)
+    var(--box-shadow-color);
+}

@@ -1,21 +1,26 @@
+@import '../../../styles.scss';
+
 $line-size: 1rem;
 $line-color: #ff2222;
 
 .timeline-item-grid {
   display: grid;
-  grid-template-columns: 8rem 2rem auto;
-  grid-template-rows: auto 2rem auto;
+  grid-template-columns: min-content auto;
+  grid-template-rows: 2rem auto auto;
   grid-template-areas:
-    '. year .'
-    'time dot content'
-    '. line content';
+    'dot time'
+    'line content'
+    'year .';
 }
 
-.year-divider {
+.year-divider-container {
   grid-area: year;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.year-divider {
   color: $line-color;
   font-weight: bold;
 }
@@ -24,6 +29,8 @@ $line-color: #ff2222;
   grid-area: content;
   flex: 1 1 auto;
   min-width: 0;
+  padding: var(--space-8);
+  padding-left: 0;
 }
 
 .line-container {
@@ -32,6 +39,8 @@ $line-color: #ff2222;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  width: $line-size;
+  padding: 0 var(--space-8);
 }
 
 .line {
@@ -46,6 +55,8 @@ $line-color: #ff2222;
   flex-direction: column;
   grid-area: dot;
   align-items: center;
+  width: $line-size;
+  padding: 0 var(--space-8);
 }
 
 .time-dot {
@@ -57,11 +68,47 @@ $line-color: #ff2222;
   background-repeat: no-repeat;
 }
 
-.time {
+.time-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-content: center;
   align-items: center;
   grid-area: time;
   margin-right: 1rem;
+  padding: var(--space-8);
+  padding-left: 0;
 }
+
+.time {
+  display: inline-block;
+  position: relative;
+
+  background: rgb(249, 255, 0);
+  background: linear-gradient(90deg, rgba(249, 255, 0, 1) 0%, rgba(255, 220, 0, 1) 100%);
+
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--border-radius-3);
+  color: var(--ksk-accent-text-color);
+  margin-left: calc(var(--space-4) * -1);
+}
+
+// $arrow-size: 8px;
+
+// .time:after,
+// .time:before {
+//   right: 100%;
+//   top: 50%;
+//   border: solid transparent;
+//   content: ' ';
+//   height: 0;
+//   width: 0;
+//   position: absolute;
+//   pointer-events: none;
+// }
+
+// .time:before {
+//   border-color: rgba(194, 225, 245, 0);
+//   border-right-color: var(--ksk-accent-color);
+//   border-width: $arrow-size;
+//   margin-top: -$arrow-size;
+// }
