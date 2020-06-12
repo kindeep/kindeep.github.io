@@ -1,38 +1,34 @@
-<div class = "padding-div">
-<mat-card #matCard>
-  <img
-    *ngIf="project.cardImage && project.cardImage.type === 'url'"
-    mat-card-image
-    src="{{ project.cardImage.url }}"
-    alt="{{ project.cardImage.alt }}"
-  />
+<div class="container">
+  <div class="hero-container">
+    <img
+      class="image"
+      *ngIf="project.cardImage && project.cardImage.type === 'url'"
+      src="{{ project.cardImage.url }}"
+      alt="{{ project.cardImage.alt }}"
+    />
 
-  <div *ngIf="project.cardImage && project.cardImage.type === 'html'">
-    <span [innerHTML]="project.cardImage.html"></span>
+    <div class="embedded-html" *ngIf="project.cardImage && project.cardImage.type === 'html'">
+      <span [innerHTML]="project.cardImage.html"></span>
+    </div>
+
+    <iframe
+      class="yt-player"
+      #ytPlayer
+      *ngIf="project.cardImage && project.cardImage.type === 'youtube'"
+      width="560"
+      height="315"
+      [src]="getYtURL()"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
   </div>
-
-  <iframe
-    mat-card-image
-    #ytPlayer
-    *ngIf="project.cardImage && project.cardImage.type === 'youtube'"
-    mat-card-image
-    width="560"
-    height="315"
-    [src]="getYtURL()"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-  ></iframe>
-
-  <mat-card-content>
-    <mat-card-title>{{ project.title }}</mat-card-title>
-    <mat-card-subtitle>{{ project.subtitle }}</mat-card-subtitle>
-    <span [innerHTML]="project.descriptionHTML"></span>
-  </mat-card-content>
-  <mat-card-actions>
-    <a *ngFor="let link of project.links" mat-button href="{{ link.href }}">
-      <span [innerHTML]="link.textHTML"></span>
+  <h2 class="title">{{ project.title }}</h2>
+  <h4 class="subtitle">{{ project.subtitle }}</h4>
+  <div class="links">
+    <a mat-ripple class="link" target="_blank" *ngFor="let link of project.links" href="{{ link.href }}">
+      {{ link.textHTML }}
     </a>
-  </mat-card-actions>
-</mat-card>
+  </div>
+  <span class="description" [innerHTML]="project.descriptionHTML"></span>
 </div>

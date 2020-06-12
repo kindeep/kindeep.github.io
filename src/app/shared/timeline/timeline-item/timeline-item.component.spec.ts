@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageNotFoundComponent } from './page-not-found.component';
+import { TimelineItemComponent } from './timeline-item.component';
 
-describe('PageNotFoundComponent', () => {
-  let component: PageNotFoundComponent;
-  let fixture: ComponentFixture<PageNotFoundComponent>;
+describe('TimelineItemComponent', () => {
+  let component: TimelineItemComponent;
+  let fixture: ComponentFixture<TimelineItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PageNotFoundComponent],
+      declarations: [TimelineItemComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PageNotFoundComponent);
+    fixture = TestBed.createComponent(TimelineItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

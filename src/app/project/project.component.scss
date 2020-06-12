@@ -1,14 +1,88 @@
 mat-card {
-    -webkit-column-break-inside: avoid;
-    /* Chrome, Safari, Opera */
+  -webkit-column-break-inside: avoid;
+  /* Chrome, Safari, Opera */
 
-    page-break-inside: avoid;
-    /* Firefox */
+  page-break-inside: avoid;
+  /* Firefox */
 
-    break-inside: avoid;
-    /* IE 10+ */
+  break-inside: avoid;
+  /* IE 10+ */
 }
 
-.padding-div {
-    padding: 8px;
+.container {
+  margin-bottom: 2rem;
+}
+
+.image {
+  margin-top: var(--space-8);
+  border-radius: var(--border-radius);
+  max-width: 100%;
+  max-height: 20em;
+}
+
+.yt-player {
+  border-radius: var(--border-radius);
+  max-height: 20em;
+  max-width: 100%;
+}
+
+.title {
+  font-size: 2em;
+  margin-top: var(--space-8);
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: 1em;
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.link {
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-size) solid var(--border-color);
+  border-radius: var(--border-radius-3);
+  display: inline-block;
+  text-decoration: none;
+  margin-right: var(--space-4);
+}
+
+.link:hover {
+}
+
+.links {
+  margin-bottom: var(--space-8);
+  transition: background-color 1s ease-out;
+}
+
+.link:hover {
+  animation: gradient 1s ease;
+  -webkit-animation-fill-mode: forwards; /* Chrome 16+, Safari 4+ */
+  -moz-animation-fill-mode: forwards; /* FF 5+ */
+  -o-animation-fill-mode: forwards; /* Not implemented yet */
+  -ms-animation-fill-mode: forwards; /* IE 10+ */
+  animation-fill-mode: forwards; /* When the spec is finished */
+  border: var(--border-size) solid transparent;
+  background-color: transparent;
+  background-clip: border-box;
+}
+
+@keyframes gradient {
+  0% {
+    background-color: transparent;
+  }
+  39% {
+    background-color: #e73c7e;
+    border: var(--border-size) solid transparent;
+  }
+  40% {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    background-position: 10% 50%;
+  }
+  100% {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    background-position: 40% 50%;
+  }
 }

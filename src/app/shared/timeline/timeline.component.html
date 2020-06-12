@@ -1,0 +1,25 @@
+<div class="timeline-container">
+  <ng-container *ngIf="items">
+    <ng-container *ngFor="let tile of getTiles()">
+      <div class="timeline-item-grid">
+        <div class="year-divider-container" *ngIf="tile.monthDivider">
+          <div class="year-divider">{{ tile.item.date | amDateFormat: 'YYYY' }}</div>
+        </div>
+        <ng-container *ngIf="!!tile.item?.template">
+          <div class="time-container">
+            <span class="time shadow-1">{{ tile.item?.date | date }}</span>
+          </div>
+          <div class="time-dot-container">
+            <div class="time-dot"></div>
+          </div>
+        </ng-container>
+        <div class="line-container">
+          <div class="line"></div>
+        </div>
+        <div class="timeline-item">
+          <ng-container *ngTemplateOutlet="tile?.item?.template"></ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
