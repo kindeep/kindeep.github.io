@@ -9,7 +9,10 @@ import { ProjectComponent } from './project/project.component';
 // angular material animation modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // material angular component modules
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatRippleModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRippleModule } from '@angular/material/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
 // material card component
 import { MatCardModule } from '@angular/material/card';
 import { LayoutModule } from '@angular/cdk/layout';
