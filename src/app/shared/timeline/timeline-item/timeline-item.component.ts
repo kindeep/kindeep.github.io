@@ -6,7 +6,7 @@ import { Component, OnInit, TemplateRef, ViewChild, Input } from '@angular/core'
   styleUrls: ['./timeline-item.component.scss', './../timeline-shared.scss'],
 })
 export class TimelineItemComponent implements OnInit {
-  @ViewChild('internalItemTemplate', { static: false }) template: TemplateRef<any>;
+  @ViewChild('internalItemTemplate') template: TemplateRef<any>;
   @Input() date: Date = new Date();
   constructor() {}
 

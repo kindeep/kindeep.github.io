@@ -10,8 +10,8 @@ declare const startGame: any;
 })
 export class HomeTabComponent implements OnInit, AfterViewInit {
   // @ViewChildren('tictactoep', { read: ElementRef}) ticParent: ElementRef;
-  @ViewChild('tictactoec', { static: false }) ticChild: ElementRef;
-  @ViewChild('flappycanvas', { static: false }) flappyChild: ElementRef;
+  @ViewChild('tictactoec') ticChild: ElementRef;
+  @ViewChild('flappycanvas') flappyChild: ElementRef;
 
   constructor() {}
 
