@@ -1,0 +1,23 @@
+  
+name: Firebase Deployment
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  cicd:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install and Build 🔧 
+        run: |
+          npm install
+          npm run build
+      - name: Install Firebase CLI
+        run: sudo npm i -g firebase-tools
+      - name: Deploy to firebase
+        run: |
+          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
