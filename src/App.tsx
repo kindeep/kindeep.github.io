@@ -5,8 +5,14 @@ import Typography from "@mui/material/Typography";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { Button } from "@mui/material";
-
+import { Button, Link } from "@mui/material";
+import {
+  Link as RouterLink,
+  useLocation,
+  Route,
+  Routes,
+} from "react-router-dom";
+import Contact from "./pages/Contact";
 interface Props {
   children: React.ReactElement;
 }
@@ -27,14 +33,27 @@ function ElevationScroll(props: Props) {
 }
 
 function Navbar() {
+  const { pathname } = useLocation();
+
+  const homePath = pathname === "/";
+
   return (
     <Box sx={{ display: "flex" }}>
-      <Box sx={{ flexGrow: 0, p: 3 }}>
-        <Typography>
-          I'm <b>Kindeep Singh Kargil</b>, a Software Engineer in Toronto
-          specializing in Full-Stack Development.
-        </Typography>
+      <Box sx={{ flexGrow: 1, p: 3 }}>
+        {homePath && (
+          <>
+            <Typography>
+              I'm <b>Kindeep Singh Kargil</b>, a Software Engineer in Toronto
+              specializing in Full-Stack Development.
+            </Typography>
+
+            <Link component={RouterLink} to="/contact">
+              Connect
+            </Link>
+          </>
+        )}
       </Box>
+
       <Box
         sx={{
           display: "flex",
@@ -44,28 +63,52 @@ function Navbar() {
         }}
       >
         <div>
-          <Box
-            sx={{
-              bgcolor: "primary.main",
-              borderRadius: 6,
-              mx: 3,
-              p: 2,
-              flexGrow: 1,
-              display: "flex",
-            }}
-          >
-            <Typography noWrap>
-              <Button sx={{ mx: 1, color: "primary.contrastText" }}>
-                About Me
+          <Typography noWrap>
+            <Box
+              sx={{
+                bgcolor: "primary.main",
+                borderRadius: 6,
+                mx: 3,
+                my: 2,
+                p: 2,
+                flexGrow: 1,
+                display: "flex",
+              }}
+            >
+              <Button
+                sx={{
+                  mx: 1,
+                  color: "primary.contrastText",
+                  display: homePath ? "none" : "block",
+                }}
+                component={RouterLink}
+                to="/"
+              >
+                Home
               </Button>
-              <Button sx={{ mx: 1, color: "primary.contrastText" }}>
+              <Button
+                sx={{ mx: 1, color: "primary.contrastText" }}
+                component={RouterLink}
+                to="/contact"
+              >
+                Contact
+              </Button>
+              <Button
+                sx={{ mx: 1, color: "primary.contrastText" }}
+                component={RouterLink}
+                to="/projects"
+              >
                 Projects
               </Button>
-              <Button sx={{ mx: 1, color: "primary.contrastText" }}>
+              <Button
+                sx={{ mx: 1, color: "primary.contrastText" }}
+                component={RouterLink}
+                to="/games"
+              >
                 Games
               </Button>
-            </Typography>
-          </Box>
+            </Box>
+          </Typography>
         </div>
       </Box>
     </Box>
@@ -76,6 +119,12 @@ export default function App() {
   return (
     <>
       <Navbar />
+      <Routes>
+        <Route path="/" element={<>Home</>} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="games" element={<>Games</>} />
+        <Route path="projects" element={<>Projects</>} />
+      </Routes>
     </>
   );
 }
