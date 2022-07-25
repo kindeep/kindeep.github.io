@@ -1,8 +1,8 @@
 import React, {createRef} from 'react';
 import { useEffect } from 'react';
-import startGame from '@kindeep/flappy-aves';
+import startGame from '@kindeep/tictactoe';
 
-export default function Flappy() {
+export default function TicTacToe() {
     const canvasRef = createRef<HTMLCanvasElement>();
 
     useEffect(() => {
@@ -10,7 +10,6 @@ export default function Flappy() {
     },[canvasRef])
 
     return <> 
-    
-    <canvas ref={canvasRef} className="game-canvas">Ooooo flappy</canvas>
+    <canvas ref={canvasRef} className="game-canvas">TicTacToe</canvas>
     </>
 }

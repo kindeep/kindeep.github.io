@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
@@ -42,7 +40,7 @@ class Chiri {
     _defineProperty(this, 'imgLoaded', void 0);
 
     this.img = new Image();
-    this.img.src = 'assets/flappy/bird.png';
+    this.img.src = '/assets/flappy/bird.png';
     this.img.onload = () => {
       this.imgLoaded = true;
     };
@@ -155,7 +153,7 @@ class GameView {
     this.startTextColor = '#1133ff';
     this.overTextColor = '#dd1122';
     this.backgroundImage = new Image();
-    this.backgroundImage.src = 'assets/flappy/background.png';
+    this.backgroundImage.src = '/assets/flappy/background.png';
     this.backgroundImage.onload = () => {
       this.backgroundImageLoaded = true;
     };
@@ -165,7 +163,7 @@ class GameView {
     this.canavs_width = canvas.width;
     this.canvas_height = canvas.height;
 
-    $(this.canvas_element).css('image-rendering', 'crisp-edges');
+    (this.canvas_element).style['image-rendering'] = 'crisp-edges';
   }
 
   get canavs_width() {
@@ -181,8 +179,8 @@ class GameView {
 
   updateDimensions() {
     // let size = Math.max(this.canvas_element.width, this.canvas_element.height);
-    let size = Math.max($(this.canvas_element).width(), $(this.canvas_element).height());
-    this.resizeCanvas(size); // $(this.canvas_element).width(size).height(size);
+    let size = Math.max(this.canvas_element.width, this.canvas_element.height);
+    this.resizeCanvas(size); 
   }
 
   resizeCanvas(size) {
@@ -309,8 +307,8 @@ class Pole {
     this.pole_width = 0.5; // eo instance vars
     this.poleImageAbove = new Image();
     this.poleImageBelow = new Image();
-    this.poleImageAbove.src = 'assets/flappy/pipe-above.png';
-    this.poleImageBelow.src = 'assets/flappy/pipe-below.png';
+    this.poleImageAbove.src = '/assets/flappy/pipe-above.png';
+    this.poleImageBelow.src = '/assets/flappy/pipe-below.png';
     this.poleImageAbove.onload = () => {
       this.poleImageAboveLoaded = true;
     };
@@ -397,34 +395,34 @@ class GameController {
     _defineProperty(this, 'game', void 0);
 
     this.game = game;
-    $(this.game.game_view.canvas_element).on('mousedown', () => {
+    (this.game.game_view.canvas_element).addEventListener('mousedown', () => {
       this.mousedown_handler();
     });
-    $(this.game.game_view.canvas_element).on('mouseup', () => {
+    (this.game.game_view.canvas_element).addEventListener('mouseup', () => {
       this.mouseup_handler();
     });
-    $(window).on('keypress', (e) => {
+    (window).addEventListener('keypress', (e) => {
       if (e.originalEvent.code === 'Space') {
         this.click_handler();
       }
     });
-    $(window).on('keydown', (e) => {
+    (window).addEventListener('keydown', (e) => {
       if (e.originalEvent.code === 'Space') {
         this.mousedown_handler();
       }
     });
-    $(window).on('keyup', (e) => {
+    (window).addEventListener('keyup', (e) => {
       if (e.originalEvent.code === 'Space') {
         this.mouseup_handler();
       }
     });
-    $(this.game.game_view.canvas_element).on('touchstart', () => {
+    (this.game.game_view.canvas_element).addEventListener('touchstart', () => {
       this.mousedown_handler();
     });
-    $(this.game.game_view.canvas_element).on('touchend', () => {
+    (this.game.game_view.canvas_element).addEventListener('touchend', () => {
       this.mouseup_handler();
     });
-    $(this.game.game_view.canvas_element).on('click', () => {
+    (this.game.game_view.canvas_element).addEventListener('click', () => {
       this.click_handler();
     });
   }
@@ -697,7 +695,13 @@ class Game {
   }
 }
 
-export default function startGame(canvas) {
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+} // find flappy c and replace div with flappy
+
+function startGame(canvas) {
   let game_view = new GameView(canvas);
   new Game(game_view);
 }
+
+module.exports = startGame;

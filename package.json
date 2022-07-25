@@ -5,7 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
-    "@kindeep/flappy-aves": "./flappy-aves",
+    "@kindeep/flappy-aves": "./flappy-aves/",
+    "@kindeep/tictactoe": "./tictactoe",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.5.3",
     "@testing-library/jest-dom": "^5.16.3",

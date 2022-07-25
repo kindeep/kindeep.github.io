@@ -46,7 +46,6 @@ export default function ProjectListItem({ project }: PropTypes) {
   const date = project.time.toDate().toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
-    day: "numeric",
   });
   return (
     <>

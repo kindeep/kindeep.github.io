@@ -14,6 +14,8 @@ import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import AboutHeader from "./components/AboutHeader";
 import Projects from "./pages/Projects";
+import "./App.css";
+
 interface Props {
   children: React.ReactElement;
 }

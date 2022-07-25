@@ -1879,8 +1879,15 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kindeep/flappy-aves@./flappy-aves":
+"@kindeep/flappy-aves@./flappy-aves/":
   version "1.0.0"
+  dependencies:
+    jquery "^3.6.0"
+
+"@kindeep/tictactoe@./tictactoe":
+  version "1.0.0"
+  dependencies:
+    jquery "^3.6.0"
 
 "@mui/base@5.0.0-alpha.74":
   version "5.0.0-alpha.74"
@@ -6196,6 +6203,11 @@ jest@^27.4.3:
     "@jest/core" "^27.5.1"
     import-local "^3.0.2"
     jest-cli "^27.5.1"
+
+jquery@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"

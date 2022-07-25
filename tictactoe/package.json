@@ -1,7 +1,7 @@
 {
-    "name": "@kindeep/flappy-aves",
+    "name": "@kindeep/tictactoe",
     "version": "1.0.0",
-    "description": "Flappy Aves embed",
+    "description": "Tic Tac Toe",
     "license": "MIT",
     "main": "index.js",
     "dependencies": {
