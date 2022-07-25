@@ -1,0 +1,7 @@
+{
+    "name": "@kindeep/flappy-aves",
+    "version": "1.0.0",
+    "description": "Flappy Aves embed",
+    "license": "MIT",
+    "main": "index.js"
+  }

@@ -6,7 +6,6 @@ import ProjectListItem from "../components/Project";
 export default function Projects() {
   const { projects } = useProjects();
   return (
-    <Container>
       <Grid container spacing={2}>
         {projects
           ?.sort((p1, p2) => p2.time.toMillis() - p1.time.toMillis())
@@ -16,6 +15,5 @@ export default function Projects() {
             </Grid>
           ))}
       </Grid>
-    </Container>
   );
 }

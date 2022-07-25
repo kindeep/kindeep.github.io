@@ -134,14 +134,16 @@ function Footer() {
 export default function App() {
   return (
     <>
-      <Navbar />
-      <Box sx={{ height: 120 }}></Box>
+      {/* <Navbar />
+      <Box sx={{ height: 120 }}></Box> */}
+      <Container>
       <Routes>
-        <Route path="/" element={<Projects />} />
+        <Route path="/" element={<Home />} />
         {/* <Route path="contact" element={<Contact />} /> */}
         <Route path="games" element={<>Games</>} />
         {/* <Route path="projects" element={<Projects />} /> */}
       </Routes>
+      </Container>
       <Footer />
     </>
   );
