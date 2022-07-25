@@ -88,7 +88,7 @@ function Navbar() {
                 >
                   Home
                 </Button>
-                <Button
+                {/* <Button
                   sx={{ mx: 1, color: "primary.contrastText" }}
                   component={RouterLink}
                   to="/contact"
@@ -101,7 +101,7 @@ function Navbar() {
                   to="/projects"
                 >
                   Projects
-                </Button>
+                </Button> */}
                 <Button
                   sx={{ mx: 1, color: "primary.contrastText" }}
                   component={RouterLink}
@@ -130,16 +130,17 @@ function Footer() {
   );
 }
 
+// TODO: Add homepage and projects page
 export default function App() {
   return (
     <>
       <Navbar />
       <Box sx={{ height: 120 }}></Box>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="contact" element={<Contact />} />
+        <Route path="/" element={<Projects />} />
+        {/* <Route path="contact" element={<Contact />} /> */}
         <Route path="games" element={<>Games</>} />
-        <Route path="projects" element={<Projects />} />
+        {/* <Route path="projects" element={<Projects />} /> */}
       </Routes>
       <Footer />
     </>
