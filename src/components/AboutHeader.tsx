@@ -7,7 +7,7 @@ export default function AboutHeader() {
   return (
     <>
       <Typography>
-        I'm <b>Kindeep Singh Kargil</b>, a Software Engineer in Toronto
+        I'm <b>Kindeep</b>, a Software Engineer in Toronto
         specializing in Full-Stack Development.
       </Typography>
 

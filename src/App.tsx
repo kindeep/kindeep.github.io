@@ -1,6 +1,4 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
@@ -15,23 +13,9 @@ import {
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import AboutHeader from "./components/AboutHeader";
+import Projects from "./pages/Projects";
 interface Props {
   children: React.ReactElement;
-}
-
-function ElevationScroll(props: Props) {
-  const { children } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
 }
 
 /* Vision: animated item change, collapsible if not enough space, expands vertically when no space,
@@ -54,6 +38,7 @@ function Navbar() {
         left: 0,
         right: 0,
         pt: 2,
+        zIndex: 2,
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -133,6 +118,18 @@ function Navbar() {
   );
 }
 
+function Footer() {
+  return (
+    <>
+      <Box
+        sx={{
+          height: 50,
+        }}
+      ></Box>
+    </>
+  );
+}
+
 export default function App() {
   return (
     <>
@@ -142,8 +139,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="contact" element={<Contact />} />
         <Route path="games" element={<>Games</>} />
-        <Route path="projects" element={<>Projects</>} />
+        <Route path="projects" element={<Projects />} />
       </Routes>
+      <Footer />
     </>
   );
 }
