@@ -10,7 +10,7 @@ export default function Projects() {
         {projects
           ?.sort((p1, p2) => p2.time.toMillis() - p1.time.toMillis())
           .map((project) => (
-            <Grid item sx={{ minWidth: "100%" }}>
+            <Grid item sx={{ flex: "100%" }}>
               <ProjectListItem project={project} />
             </Grid>
           ))}

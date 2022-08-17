@@ -9,6 +9,7 @@ import {
   useLocation,
   Route,
   Routes,
+  Navigate,
 } from "react-router-dom";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
@@ -139,12 +140,13 @@ export default function App() {
       {/* <Navbar />
       <Box sx={{ height: 120 }}></Box> */}
       <Container>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="contact" element={<Contact />} /> */}
-        <Route path="games" element={<>Games</>} />
-        {/* <Route path="projects" element={<Projects />} /> */}
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="contact" element={<Contact />} /> */}
+          <Route path="games" element={<>Games</>} />
+          <Route path="projects" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       </Container>
       <Footer />
     </>
