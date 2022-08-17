@@ -17,11 +17,11 @@ export default function Home() {
         {/* <Box sx={{ display: { xs: "block", md: "none" }, pb: 3 }}>
           <AboutHeader />
         </Box> */}
-        <Typography variant="h4" mt={4} mb={1}>
+        {/* <Typography variant="h4" mt={4} mb={1}>
           Kindeep Singh Kargil
         </Typography>
-        <Typography variant="subtitle1">Software Engineer</Typography>
-        <Box mt={1}>
+        <Typography variant="subtitle1">Software Engineer</Typography> */}
+        {/* <Box mt={1}>
           <IconButton
             edge="start"
             component="a"
@@ -36,19 +36,8 @@ export default function Home() {
           <IconButton component="a" href="mailto:me@kindeep.me">
             <EmailIcon />
           </IconButton>
-        </Box>
-        <Typography variant="h4" mb={1} mt={3}>
-          Games
-        </Typography>
-        <Typography variant="subtitle1" mb={3} color="">
-          Some browser games to play while you're here
-        </Typography>
-        <Games />
-
-        <Typography variant="h4" mb={3} mt={3} id="projects">
-          Projects
-        </Typography>
-        <Projects />
+        </Box> */}
+       
       </Container>
     </>
   );

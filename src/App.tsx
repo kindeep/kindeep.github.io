@@ -15,110 +15,12 @@ import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import AboutHeader from "./components/AboutHeader";
 import Projects from "./pages/Projects";
+import Games from "./pages/Games";
 import "./App.css";
+import Navbar from "./components/Navbar";
 
 interface Props {
   children: React.ReactElement;
-}
-
-/* Vision: animated item change, collapsible if not enough space, expands vertically when no space,
- maybe even animates to bottom of screen when small */
-function Navbar() {
-  const { pathname } = useLocation();
-
-  const scrolled = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
-
-  const homePath = pathname === "/";
-
-  return (
-    <Container
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        pt: 2,
-        zIndex: 2,
-      }}
-    >
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Box
-          sx={{
-            flexGrow: 1,
-            pr: 3,
-            display: { xs: "none", md: "block" },
-          }}
-        >
-          {homePath && (
-            <>
-              <Box sx={{ visibility: scrolled ? "hidden" : "block" }}>
-                <AboutHeader />
-              </Box>
-            </>
-          )}
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            // justifyContent: "center",
-            // alignItems: "center",
-          }}
-        >
-          <div>
-            <Typography noWrap>
-              <Box
-                sx={{
-                  bgcolor: "primary.main",
-                  borderRadius: 6,
-                  p: 2,
-                  flexGrow: 1,
-                  display: "flex",
-                }}
-              >
-                <Button
-                  sx={{
-                    mx: 1,
-                    color: "primary.contrastText",
-                    display: homePath ? "none" : "block",
-                  }}
-                  component={RouterLink}
-                  to="/"
-                >
-                  Home
-                </Button>
-                {/* <Button
-                  sx={{ mx: 1, color: "primary.contrastText" }}
-                  component={RouterLink}
-                  to="/contact"
-                >
-                  Contact
-                </Button>
-                <Button
-                  sx={{ mx: 1, color: "primary.contrastText" }}
-                  component={RouterLink}
-                  to="/projects"
-                >
-                  Projects
-                </Button> */}
-                <Button
-                  sx={{ mx: 1, color: "primary.contrastText" }}
-                  component={RouterLink}
-                  to="/games"
-                >
-                  Games
-                </Button>
-              </Box>
-            </Typography>
-          </div>
-        </Box>
-      </Box>
-    </Container>
-  );
 }
 
 function Footer() {
@@ -137,17 +39,15 @@ function Footer() {
 export default function App() {
   return (
     <>
-      {/* <Navbar />
-      <Box sx={{ height: 120 }}></Box> */}
-      <Container>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="contact" element={<Contact />} /> */}
-          <Route path="games" element={<>Games</>} />
-          <Route path="projects" element={<Navigate to="/" />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Container>
+      <Navbar />
+      <Box sx={{ height: 160 }}></Box>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="contact" element={<Contact />} /> */}
+        <Route path="games" element={<Games />} />
+        <Route path="projects" element={<Projects />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
       <Footer />
     </>
   );
