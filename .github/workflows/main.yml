@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@master
       - name: Install and Build 🔧 
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn build
       - name: Install Firebase CLI
         run: sudo npm i -g firebase-tools
       - name: Deploy to firebase
