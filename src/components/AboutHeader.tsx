@@ -22,7 +22,6 @@ export default function AboutHeader() {
           }}
         /> */}
         <Typography variant="h4">Kindeep Singh Kargil</Typography>
-        <Typography variant="subtitle1">Software Engineer</Typography>
         <Box mt={1}>
           <IconButton
             edge="start"

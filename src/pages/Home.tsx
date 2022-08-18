@@ -12,19 +12,20 @@ import Games from "./Games";
 import { Link as RouterLink } from 'react-router-dom';
 import ArrowRight from '@mui/icons-material/ArrowForwardIos';
 import { grey } from '@mui/material/colors';
+import Div100vh from 'react-div-100vh'
 
 export default function Home() {
   return (
-    <>
-      <Container>
-        <Typography variant="h2" mt={8} >
+    <Div100vh>
+      <Container sx={{display: "flex", justifyContent: "center", flexDirection: "column", height: "100%"}}>
+        <Typography variant="h2" mt={0} >
           Hi👋, I'm Kindeep.
         </Typography>
         <Typography variant="h5" mt={2} color={grey[600]}>
           A Software Engineer in Toronto.
         </Typography>
 
-        <Box mt={6} sx={{ backgroundColor: "primary.light", overflow: "hidden", pl: 2, color: "primary.contrastText", borderRadius: 2, display: "inline-flex", alignItems: "center" }}>
+        <Box mt={4} sx={{ backgroundColor: "primary.light", overflow: "hidden", pl: 2, color: "primary.contrastText", borderRadius: 2, display: "inline-flex", alignItems: "center" }}>
           <ArrowRight />
           <Box sx={{ backgroundColor: "primary.main", px: 3, ml: 2 }}>
 
@@ -34,7 +35,7 @@ export default function Home() {
           </Box>
         </Box>
 
-        <Box mt={20}>
+        <Box mt={5}>
           <Card variant="outlined" >
             <List subheader={
               <ListSubheader>Get in touch</ListSubheader>
@@ -74,6 +75,6 @@ export default function Home() {
         </Box>
 
       </Container>
-    </>
+    </Div100vh>
   );
 }

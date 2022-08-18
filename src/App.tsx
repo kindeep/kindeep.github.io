@@ -36,7 +36,7 @@ function Footer() {
     <>
       <Box
         sx={{
-          height: 50,
+          // height: 50,
         }}
       ></Box>
     </>
@@ -48,9 +48,7 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme} >
-
         <Navbar />
-        <Box sx={{ height: 160 }}></Box>
         <Routes>
           <Route path="/" element={<Home />} />
           {/* <Route path="contact" element={<Contact />} /> */}

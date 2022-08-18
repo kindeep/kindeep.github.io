@@ -25,105 +25,109 @@ export default function Navbar() {
   return (
     <>
       {!homePath &&
-        <Box sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          pt: 2,
-          pb: 2,
-          zIndex: 2,
-          color: "primary.contrastText",
-          backgroundColor: thing ? "primary.main" : "",
-        }}>
-          <Container
+        <>
+          <Box sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            pt: 2,
+            pb: 2,
+            zIndex: 2,
+            color: "primary.contrastText",
+            backgroundColor: thing ? "primary.main" : "",
+          }}>
+            <Container
 
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                flexDirection: thing ? {
-                  xs: "column",
-                  sm: "row",
-                } : "row",
-              }}
             >
               <Box
                 sx={{
-                  flexGrow: 1,
-                  pr: 3,
-                }}
-              >
-                <>
-                  <Box sx={{ visibility: thing ? "block" : "hidden" }}>
-                    <AboutHeader />
-                  </Box>
-                </>
-              </Box>
-
-              <Box
-                sx={{
                   display: "flex",
-                  flexDirection: "column",
-                  "&": thing
-                    ? {
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }
-                    : "",
+                  justifyContent: "flex-end",
+                  flexDirection: thing ? {
+                    xs: "column",
+                    sm: "row",
+                  } : "row",
                 }}
               >
-                <div>
-                  <Typography noWrap>
-                    <Box
-                      sx={{
-                        bgcolor: "primary.main",
-                        borderRadius: 6,
-                        p: 2,
-                        flexGrow: 1,
-                        display: "flex",
-                      }}
-                    >
-                      <Button
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    pr: 3,
+                  }}
+                >
+                  <>
+                    <Box sx={{ visibility: thing ? "block" : "hidden" }}>
+                      <AboutHeader />
+                    </Box>
+                  </>
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    "&": thing
+                      ? {
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }
+                      : "",
+                  }}
+                >
+                  <div>
+                    <Typography noWrap>
+                      <Box
                         sx={{
-                          mx: 1,
-                          color: "primary.contrastText",
-                          display: homePath ? "none" : "block",
+                          bgcolor: "primary.main",
+                          borderRadius: 6,
+                          p: 2,
+                          flexGrow: 1,
+                          display: "flex",
                         }}
-                        component={RouterLink}
-                        to="/"
                       >
-                        Home
-                      </Button>
-                      {/* <Button
+                        <Button
+                          sx={{
+                            mx: 1,
+                            color: "primary.contrastText",
+                            display: homePath ? "none" : "block",
+                          }}
+                          component={RouterLink}
+                          to="/"
+                        >
+                          Home
+                        </Button>
+                        {/* <Button
                   sx={{ mx: 1, color: "primary.contrastText" }}
                   component={RouterLink}
                   to="/contact"
                 >
                   Contact
                 </Button> */}
-                      <Button
-                        sx={{ mx: 1, color: "primary.contrastText" }}
-                        component={RouterLink}
-                        to="/projects"
-                      >
-                        Projects
-                      </Button>
-                      <Button
-                        sx={{ mx: 1, color: "primary.contrastText" }}
-                        component={RouterLink}
-                        to="/games"
-                      >
-                        Games
-                      </Button>
-                    </Box>
-                  </Typography>
-                </div>
+                        <Button
+                          sx={{ mx: 1, color: "primary.contrastText" }}
+                          component={RouterLink}
+                          to="/projects"
+                        >
+                          Projects
+                        </Button>
+                        <Button
+                          sx={{ mx: 1, color: "primary.contrastText" }}
+                          component={RouterLink}
+                          to="/games"
+                        >
+                          Games
+                        </Button>
+                      </Box>
+                    </Typography>
+                  </div>
+                </Box>
               </Box>
-            </Box>
-          </Container>
-        </Box>
+            </Container>
+          </Box>
+          <Box sx={{ height: 160 }}></Box>
+
+        </>
       }
     </>
   );
