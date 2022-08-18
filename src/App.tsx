@@ -18,10 +18,18 @@ import Projects from "./pages/Projects";
 import Games from "./pages/Games";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-interface Props {
-  children: React.ReactElement;
-}
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ef9a9a',
+    },
+    secondary: {
+      main: '#b2ebf2',
+    }, 
+  },
+});
 
 function Footer() {
   return (
@@ -39,16 +47,20 @@ function Footer() {
 export default function App() {
   return (
     <>
-      <Navbar />
-      <Box sx={{ height: 160 }}></Box>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="contact" element={<Contact />} /> */}
-        <Route path="games" element={<Games />} />
-        <Route path="projects" element={<Projects />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-      <Footer />
+      <ThemeProvider theme={theme} >
+
+        <Navbar />
+        <Box sx={{ height: 160 }}></Box>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="contact" element={<Contact />} /> */}
+          <Route path="games" element={<Games />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <Footer />
+      </ThemeProvider>
+
     </>
   );
 }

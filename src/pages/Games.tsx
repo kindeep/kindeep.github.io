@@ -11,7 +11,7 @@ export default function Games() {
           Games
         </Typography>
         <Typography variant="subtitle1" mb={3} color="">
-          Some browser games to play while you're here
+          Here are some browser games you can play while here! I built them while learning JavaScript, they're hence admittedly not very polished.
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6} sx={{ flexShrink: 0 }}>
