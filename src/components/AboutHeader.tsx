@@ -21,8 +21,8 @@ export default function AboutHeader() {
             zIndex: -1
           }}
         /> */}
-        <Typography variant="h4">Kindeep Singh Kargil</Typography>
-        <Box mt={1}>
+        <Typography variant="h4" component="div">Kindeep Singh Kargil</Typography>
+        {/* <Box mt={1}>
           <IconButton
             edge="start"
             component="a"
@@ -41,7 +41,7 @@ export default function AboutHeader() {
           <IconButton component="a" href="mailto:me@kindeep.me" color="inherit">
             <EmailIcon />
           </IconButton>
-        </Box>
+        </Box> */}
       </Box>
     </>
   );

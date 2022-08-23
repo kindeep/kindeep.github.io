@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { Button, Link } from "@mui/material";
+import { Button, CssBaseline, Link } from "@mui/material";
 import {
   Link as RouterLink,
   useLocation,
@@ -18,26 +18,34 @@ import Projects from "./pages/Projects";
 import Games from "./pages/Games";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ef9a9a',
+const theme = responsiveFontSizes(
+  createTheme({
+    palette: {
+      primary: {
+        main: "#ef9a9a",
+      },
+      secondary: {
+        main: "#b2ebf2",
+      },
     },
-    secondary: {
-      main: '#b2ebf2',
-    }, 
-  },
-});
+  })
+);
 
 function Footer() {
   return (
     <>
       <Box
-        sx={{
-          // height: 50,
-        }}
+        sx={
+          {
+            // height: 50,
+          }
+        }
       ></Box>
     </>
   );
@@ -47,7 +55,8 @@ function Footer() {
 export default function App() {
   return (
     <>
-      <ThemeProvider theme={theme} >
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -58,7 +67,6 @@ export default function App() {
         </Routes>
         <Footer />
       </ThemeProvider>
-
     </>
   );
 }
