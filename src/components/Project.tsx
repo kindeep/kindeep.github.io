@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
+  Chip,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -60,6 +61,12 @@ export default function ProjectListItem({ project }: PropTypes) {
           </Typography>
         </CardContent>
         <CardHeader title={project.title} subheader={project.subtitle} />
+        <CardContent sx={{ paddingTop: 0 }}>
+          {project.tags?.length > 0 &&
+            project.tags.map((tag) => (
+              <Chip sx={{ marginRight: 1 }} label={tag}></Chip>
+            ))}
+        </CardContent>
         {project.cardImage?.type === "url" && (
           <CardMedia
             component="img"

@@ -20,4 +20,5 @@ export default interface Project {
   links: ProjectLink[];
   time: Timestamp;
   cardImage: CardImage;
+  tags: string[];
 }
